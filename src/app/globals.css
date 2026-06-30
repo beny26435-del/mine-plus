@@ -47,13 +47,39 @@ button {
 
 .tech-bg {
   background:
-    radial-gradient(circle at 25% 15%, rgba(242, 211, 53, 0.18), transparent 28%),
+    radial-gradient(circle at 70% 18%, rgba(91, 101, 115, 0.12), transparent 30%),
     linear-gradient(135deg, #071019 0%, #0b1220 58%, #121212 100%);
 }
 
 .grid-dots {
   background-image: radial-gradient(rgba(242, 211, 53, 0.18) 1px, transparent 1px);
   background-size: 20px 20px;
+}
+
+.hero-banner-frame {
+  animation: hero-banner-float 7s ease-in-out infinite;
+  box-shadow:
+    0 0 0 1px rgba(242, 211, 53, 0.14),
+    0 18px 34px rgba(0, 0, 0, 0.22);
+}
+
+.hero-banner-frame::before {
+  animation: hero-banner-glow 5.5s ease-in-out infinite;
+  background:
+    linear-gradient(120deg, transparent 18%, rgba(242, 211, 53, 0.42), transparent 38%),
+    radial-gradient(circle at 52% 100%, rgba(242, 211, 53, 0.3), transparent 58%);
+  content: "";
+  inset: -1px;
+  opacity: 0.58;
+  position: absolute;
+}
+
+.hero-banner-frame::after {
+  background: #071019;
+  border-radius: 1.35rem;
+  content: "";
+  inset: 6px;
+  position: absolute;
 }
 
 .mobile-menu-overlay {
@@ -116,6 +142,28 @@ button {
 @keyframes shine {
   100% {
     transform: translateX(100%);
+  }
+}
+
+@keyframes hero-banner-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes hero-banner-glow {
+  0%,
+  100% {
+    opacity: 0.42;
+    transform: translateX(-8%);
+  }
+  50% {
+    opacity: 0.72;
+    transform: translateX(8%);
   }
 }
 

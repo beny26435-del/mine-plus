@@ -61,8 +61,8 @@ export default async function HomePage() {
               </Link>
             </div>
           </div>
-          <div className="rounded-3xl border border-gold/20 bg-white/[0.04] p-1.5 shadow-glow">
-            <div className="relative aspect-[1640/720] overflow-hidden rounded-[1.25rem] bg-black/30">
+          <div className="hero-banner-frame relative overflow-hidden rounded-3xl border border-gold/15 bg-black/30 p-1.5">
+            <div className="relative z-10 aspect-[1640/720] overflow-hidden rounded-[1.15rem] bg-black/30">
               <Image src={settings?.bannerImage || "/images/mine-plus-banner.png"} alt="Mine Plus banner" fill sizes="(min-width: 1024px) 52vw, 100vw" className="object-cover" priority />
             </div>
           </div>
