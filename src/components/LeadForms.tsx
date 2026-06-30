@@ -1,13 +1,14 @@
 "use client";
 
 import { useActionState, useEffect, useRef, useState } from "react";
-import { Loader2, Send } from "lucide-react";
+import { Loader2, Send, X } from "lucide-react";
 import { submitFarmSetupRequest, submitRepairRequest } from "@/lib/actions";
 import { validateLeadFiles } from "@/lib/upload-rules";
 
 const initialState = { ok: false, message: "", values: {}, fieldErrors: {} };
 
 type UploadedFile = { url: string; type: "image" | "video"; filename: string; size: number };
+type UploadedItem = UploadedFile & { originalName: string };
 
 function SubmitButton({ label, disabled, busy }: { label: string; disabled?: boolean; busy?: boolean }) {
   return (
@@ -24,6 +25,12 @@ function SubmitButton({ label, disabled, busy }: { label: string; disabled?: boo
 
 function FieldError({ message }: { message?: string }) {
   return message ? <p className="mt-1 text-xs font-bold text-red-600">{message}</p> : null;
+}
+
+function formatBytes(size: number) {
+  if (size < 1024) return `${size} B`;
+  if (size < 1024 * 1024) return `${Math.round(size / 1024)} KB`;
+  return `${(size / (1024 * 1024)).toFixed(1)} MB`;
 }
 
 function uploadWithProgress(files: File[], onProgress: (percent: number) => void) {
@@ -55,6 +62,7 @@ export function RepairForm() {
   const [saving, setSaving] = useState(false);
   const [progress, setProgress] = useState(0);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const [uploadedFiles, setUploadedFiles] = useState<UploadedItem[]>([]);
   const [uploadMessage, setUploadMessage] = useState("");
   const percent = new Intl.NumberFormat("fa-IR").format(progress);
   const fileCount = new Intl.NumberFormat("fa-IR").format(selectedFiles.length);
@@ -66,45 +74,57 @@ export function RepairForm() {
       setClientError("");
       setProgress(0);
       setSelectedFiles([]);
+      setUploadedFiles([]);
       setUploadMessage("");
+      if (fileRef.current) fileRef.current.value = "";
     }
   }, [state]);
 
-  function onFileChange(event: React.ChangeEvent<HTMLInputElement>) {
+  async function onFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     const files = Array.from(event.target.files || []);
     setSelectedFiles(files);
+    setUploadedFiles([]);
     setProgress(0);
     setUploadMessage(files.length ? `${new Intl.NumberFormat("fa-IR").format(files.length)} فایل آماده آپلود است.` : "");
     const validation = validateLeadFiles(files);
     setClientError(validation);
+    if (validation || !files.length) return;
+
+    try {
+      setUploading(true);
+      setUploadMessage("در حال آپلود فایل‌ها...");
+      const uploaded = await uploadWithProgress(files, setProgress);
+      setUploadedFiles(uploaded.map((file, index) => ({ ...file, originalName: files[index]?.name || file.filename })));
+      setUploadMessage("فایل‌ها آپلود شدند. اگر لازم بود می‌توانید قبل از ثبت، فایل را حذف کنید.");
+    } catch (error) {
+      setUploadedFiles([]);
+      setClientError(error instanceof Error ? error.message : "آپلود فایل انجام نشد.");
+      setUploadMessage("");
+    } finally {
+      setUploading(false);
+    }
+  }
+
+  function removeUploadedFile(index: number) {
+    setUploadedFiles((files) => files.filter((_, fileIndex) => fileIndex !== index));
+    setUploadMessage("فایل از درخواست حذف شد. برای ارسال فایل جدید دوباره انتخاب کنید.");
+    if (fileRef.current) fileRef.current.value = "";
+    setSelectedFiles([]);
+    setProgress(0);
   }
 
   async function handleAction(_formData: FormData) {
     setClientError("");
-    setProgress(0);
-    setUploadMessage("");
     const submitData = new FormData(formRef.current || undefined);
     submitData.delete("files");
     submitData.delete("mediaLink");
-    const files = Array.from(fileRef.current?.files || []);
-    if (files.length) {
-      const validation = validateLeadFiles(files);
-      if (validation) {
-        setClientError(validation);
-        return;
-      }
-      try {
-        setUploading(true);
-        setUploadMessage("در حال آپلود فایل‌ها...");
-        const uploaded = await uploadWithProgress(files, setProgress);
-        submitData.set("uploadedFiles", JSON.stringify(uploaded));
-        setUploadMessage("فایل‌ها آپلود شدند. در حال ثبت درخواست...");
-      } catch (error) {
-        setClientError(error instanceof Error ? error.message : "آپلود فایل انجام نشد.");
-        return;
-      } finally {
-        setUploading(false);
-      }
+    if (uploading) {
+      setClientError("لطفاً تا پایان آپلود فایل صبر کنید.");
+      return;
+    }
+    if (uploadedFiles.length) {
+      submitData.set("uploadedFiles", JSON.stringify(uploadedFiles.map(({ originalName: _originalName, ...file }) => file)));
+      setUploadMessage("فایل‌ها آماده‌اند. در حال ثبت درخواست...");
     }
     setSaving(true);
     action(submitData);
@@ -149,15 +169,21 @@ export function RepairForm() {
           <div className="mt-3">
             <div className="flex items-center justify-between text-xs font-bold text-steel">
               <span>{uploadMessage || `${fileCount} فایل انتخاب شده است.`}</span>
-              <span>{uploading ? `${percent}٪` : progress === 100 ? "۱۰۰٪" : "آماده"}</span>
+              <span>{uploading ? `${percent}٪` : uploadedFiles.length ? "آپلود شد" : "آماده"}</span>
             </div>
             <div className="mt-2 h-2 overflow-hidden rounded-full bg-silver">
               <div className="h-full bg-gold transition-all duration-300" style={{ width: `${uploading || progress === 100 ? progress : 0}%` }} />
             </div>
             <div className="mt-2 flex flex-wrap gap-2">
-              {selectedFiles.map((file) => (
-                <span key={`${file.name}-${file.size}`} className="max-w-full truncate rounded-full bg-white px-3 py-1 text-xs font-bold text-steel">
-                  {file.name}
+              {(uploadedFiles.length ? uploadedFiles : selectedFiles.map((file) => ({ originalName: file.name, filename: file.name, size: file.size, url: "", type: file.type.startsWith("video/") ? "video" : "image" }))).map((file, index) => (
+                <span key={`${file.filename}-${file.size}-${index}`} className="inline-flex max-w-full items-center gap-2 rounded-full bg-white px-3 py-1 text-xs font-bold text-steel">
+                  <span className="truncate">{file.originalName || file.filename}</span>
+                  <span className="shrink-0 text-[10px] text-steel/70">{formatBytes(file.size)}</span>
+                  {uploadedFiles.length ? (
+                    <button type="button" onClick={() => removeUploadedFile(index)} className="shrink-0 rounded-full bg-red-50 p-1 text-red-600 hover:bg-red-100" aria-label="حذف فایل">
+                      <X size={12} />
+                    </button>
+                  ) : null}
                 </span>
               ))}
             </div>
