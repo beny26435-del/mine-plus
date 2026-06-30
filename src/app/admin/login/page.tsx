@@ -1,4 +1,3 @@
-import { loginAction } from "@/app/admin/actions";
 import { Logo } from "@/components/Logo";
 
 export const dynamic = "force-dynamic";
@@ -7,7 +6,7 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
   const query = await searchParams;
   return (
     <main className="grid min-h-screen place-items-center bg-navy p-5 text-white">
-      <form action={loginAction} className="w-full max-w-md rounded-3xl border border-white/10 bg-white/5 p-6 shadow-glow">
+      <form action="/admin/login/submit" method="post" className="w-full max-w-md rounded-3xl border border-white/10 bg-white/5 p-6 shadow-glow">
         <Logo />
         <h1 className="mt-8 text-2xl font-extrabold">ورود به پنل Mine Plus</h1>
         <label className="mt-6 grid gap-2 text-sm font-bold">ایمیل<input name="email" type="email" required className="rounded-xl border border-white/10 bg-white px-3 py-3 text-graphite" /></label>

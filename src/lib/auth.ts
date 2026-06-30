@@ -4,7 +4,7 @@ import bcrypt from "bcryptjs";
 import crypto from "crypto";
 import { prisma } from "@/lib/prisma";
 
-const cookieName = "mine_plus_admin_session";
+export const adminSessionCookieName = "mine_plus_admin_session";
 const maxAge = 60 * 60 * 8;
 
 function getSecret() {
@@ -17,28 +17,36 @@ function sign(value: string) {
   return crypto.createHmac("sha256", getSecret()).update(value).digest("hex");
 }
 
-export async function createSession(userId: string) {
+export function createSessionToken(userId: string) {
   const expires = Date.now() + maxAge * 1000;
   const payload = `${userId}.${expires}`;
-  const token = `${payload}.${sign(payload)}`;
-  const store = await cookies();
-  store.set(cookieName, token, {
+  return `${payload}.${sign(payload)}`;
+}
+
+export function adminSessionCookieOptions() {
+  return {
     httpOnly: true,
-    sameSite: "lax",
+    sameSite: "lax" as const,
     secure: process.env.NODE_ENV === "production",
     maxAge,
     path: "/"
-  });
+  };
+}
+
+export async function createSession(userId: string) {
+  const token = createSessionToken(userId);
+  const store = await cookies();
+  store.set(adminSessionCookieName, token, adminSessionCookieOptions());
 }
 
 export async function destroySession() {
   const store = await cookies();
-  store.delete(cookieName);
+  store.delete(adminSessionCookieName);
 }
 
 export async function getAdminUser() {
   const store = await cookies();
-  const token = store.get(cookieName)?.value;
+  const token = store.get(adminSessionCookieName)?.value;
   if (!token) return null;
   const [userId, expires, signature] = token.split(".");
   if (!userId || !expires || !signature) return null;
