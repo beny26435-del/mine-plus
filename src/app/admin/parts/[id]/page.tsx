@@ -1,0 +1,13 @@
+import { notFound } from "next/navigation";
+import { AdminShell } from "@/components/admin/AdminShell";
+import { ProductForm } from "@/components/admin/ProductForm";
+import { requireAdmin } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+
+export default async function EditPartPage({ params }: { params: Promise<{ id: string }> }) {
+  await requireAdmin();
+  const { id } = await params;
+  const product = await prisma.product.findUnique({ where: { id } });
+  if (!product) notFound();
+  return <AdminShell><h1 className="mb-6 text-3xl font-extrabold">ویرایش قطعه</h1><ProductForm product={product} kind="part" /></AdminShell>;
+}

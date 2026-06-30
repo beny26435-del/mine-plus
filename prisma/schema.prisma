@@ -1,0 +1,149 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id               String   @id @default(cuid())
+  title            String
+  slug             String   @unique
+  category         String
+  kind             String   @default("miner")
+  shortDescription String
+  description      String
+  image            String?
+  priceText        String?
+  stockStatus      String   @default("inquiry")
+  featured         Boolean  @default(false)
+  status           String   @default("published")
+  sortOrder        Int      @default(0)
+  metaTitle        String?
+  metaDescription  String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model RepairRequest {
+  id          String                    @id @default(cuid())
+  name        String
+  phone       String
+  city        String
+  deviceModel String
+  issueType   String
+  description String
+  mediaLink   String?
+  status      String                    @default("new")
+  adminNote   String?
+  attachments RepairRequestAttachment[]
+  createdAt   DateTime                  @default(now())
+  updatedAt   DateTime                  @updatedAt
+}
+
+model FarmSetupRequest {
+  id          String   @id @default(cuid())
+  name        String
+  phone       String
+  city        String
+  capacity    String
+  powerStatus String
+  location    String
+  description String
+  status      String   @default("new")
+  adminNote   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model RepairRequestAttachment {
+  id              String        @id @default(cuid())
+  repairRequestId String
+  url             String
+  type            String
+  filename        String
+  size            Int
+  createdAt       DateTime      @default(now())
+  repairRequest   RepairRequest @relation(fields: [repairRequestId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model SiteSettings {
+  id                     Int      @id @default(1)
+  brandName              String   @default("Mine Plus")
+  slogan                 String   @default("فروش ماینر، قطعات، تعمیرات و راه‌اندازی فارم")
+  phone                  String   @default("09127023327")
+  whatsappLink           String   @default("https://wa.me/989127023327")
+  telegram               String?
+  instagram              String?
+  address                String?
+  workingHours           String?
+  logoImage              String   @default("/images/mine-plus-logo.png")
+  bannerImage            String   @default("/images/mine-plus-banner.png")
+  heroEyebrow            String   @default("Mine Plus | فروش، تعمیر و راه‌اندازی")
+  heroTitle              String   @default("فروش ماینر، قطعات، تعمیرات و راه‌اندازی فارم")
+  heroText               String   @default("Mine Plus برای خرید و استعلام دستگاه ماینر، قطعات مصرفی، تعمیرات تخصصی و طراحی زیرساخت فارم ساخته شده است.")
+  storeTitle             String   @default("ماینر و قطعه را با اطلاعات روشن‌تر انتخاب کنید")
+  storeText              String   @default("محصولات منتخب برای شروع استعلام نمایش داده شده‌اند. برای خرید دستگاه، تامین قطعه یا بررسی سازگاری، وارد بخش مربوط شوید.")
+  servicesTitle          String   @default("خدمات Mine Plus فقط فروش محصول نیست")
+  servicesText           String   @default("اگر برای خرید، تعمیر یا راه‌اندازی فارم تصمیم می‌گیرید، بهتر است شرایط دستگاه، برق، تهویه و هزینه‌های احتمالی از ابتدا مشخص باشد.")
+  repairCtaTitle         String   @default("دستگاه شما خطا دارد یا هش نمی‌دهد؟")
+  repairCtaText          String   @default("مشکل دستگاه را ثبت کنید و اگر عکس یا ویدیو از خطا دارید همان‌جا ارسال کنید تا بررسی اولیه دقیق‌تر انجام شود.")
+  farmCtaTitle           String   @default("برای فارم، قبل از خرید تجهیزات برنامه‌ریزی کنید")
+  farmCtaText            String   @default("برق، تهویه، چیدمان، شبکه و نگهداری باید قبل از خرید تعداد بالا بررسی شوند تا هزینه‌های بعدی قابل کنترل باشد.")
+  contentTitle           String   @default("راهنماها و نمونه‌کارهای Mine Plus")
+  contentText            String   @default("برای تصمیم بهتر، راهنماهای خرید، نکات نگهداری و نمونه‌کارهای تعمیرات را ببینید.")
+  defaultMetaTitle       String   @default("Mine Plus | فروش ماینر، قطعات و تعمیرات تخصصی")
+  defaultMetaDescription String   @default("فروش و استعلام ماینر و قطعات، پذیرش تعمیرات تخصصی و راه‌اندازی فارم ماینینگ با بررسی فنی.")
+  enableStore            Boolean  @default(true)
+  enableRepairForm       Boolean  @default(true)
+  enableFarmForm         Boolean  @default(true)
+  showPrices             Boolean  @default(false)
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime @updatedAt
+}
+
+model BlogPost {
+  id              String    @id @default(cuid())
+  title           String
+  slug            String    @unique
+  excerpt         String
+  content         String
+  category        String?
+  coverImage      String?
+  status          String    @default("draft")
+  metaTitle       String?
+  metaDescription String?
+  publishedAt     DateTime?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model CaseStudy {
+  id              String   @id @default(cuid())
+  title           String
+  slug            String   @unique
+  deviceModel     String
+  repairType      String
+  problem         String
+  diagnosis       String
+  solution        String
+  result          String
+  image           String?
+  videoUrl        String?
+  status          String   @default("draft")
+  metaTitle       String?
+  metaDescription String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
