@@ -1,6 +1,8 @@
 import { loginAction } from "@/app/admin/actions";
 import { Logo } from "@/components/Logo";
 
+export const dynamic = "force-dynamic";
+
 export default async function LoginPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
   const query = await searchParams;
   return (
