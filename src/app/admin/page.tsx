@@ -8,11 +8,12 @@ export const dynamic = "force-dynamic";
 
 export default async function AdminDashboard() {
   await requireAdmin();
-  const [miners, parts, repairs, farms, posts, cases, latestRepairs, latestFarms] = await Promise.all([
+  const [miners, parts, repairs, farms, support, posts, cases, latestRepairs, latestFarms] = await Promise.all([
     prisma.product.count({ where: { kind: "miner" } }),
     prisma.product.count({ where: { kind: "part" } }),
     prisma.repairRequest.count(),
     prisma.farmSetupRequest.count(),
+    prisma.supportLead.count(),
     prisma.blogPost.count(),
     prisma.caseStudy.count(),
     prisma.repairRequest.findMany({
@@ -32,6 +33,7 @@ export default async function AdminDashboard() {
     ["قطعات", parts, "/admin/parts"],
     ["درخواست تعمیر", repairs, "/admin/repair-requests"],
     ["درخواست فارم", farms, "/admin/farm-requests"],
+    ["ساپورت سایت", support, "/admin/support"],
     ["مقالات", posts, "/admin/posts"],
     ["نمونه‌کارها", cases, "/admin/case-studies"]
   ];

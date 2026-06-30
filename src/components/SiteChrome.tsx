@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { AiSupportWidget } from "@/components/AiSupportWidget";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 
@@ -15,6 +16,7 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
       <Header />
       <main>{children}</main>
       <Footer />
+      <AiSupportWidget />
     </>
   );
 }

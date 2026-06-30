@@ -65,6 +65,7 @@ export async function saveSettingsAction(formData: FormData) {
       enableStore: checked(formData, "enableStore"),
       enableRepairForm: checked(formData, "enableRepairForm"),
       enableFarmForm: checked(formData, "enableFarmForm"),
+      enableAiSupport: checked(formData, "enableAiSupport"),
       showPrices: checked(formData, "showPrices")
     },
     create: {
@@ -218,4 +219,22 @@ export async function deleteFarmRequestAction(formData: FormData) {
   revalidatePath("/admin");
   revalidatePath("/admin/farm-requests");
   redirect("/admin/farm-requests");
+}
+
+export async function updateSupportLeadAction(formData: FormData) {
+  await requireAdmin();
+  await prisma.supportLead.update({
+    where: { id: text(formData, "id") },
+    data: { status: text(formData, "status"), adminNote: nullable(formData, "adminNote") }
+  });
+  revalidatePath("/admin");
+  revalidatePath("/admin/support");
+}
+
+export async function deleteSupportLeadAction(formData: FormData) {
+  await requireAdmin();
+  await prisma.supportLead.delete({ where: { id: text(formData, "id") } });
+  revalidatePath("/admin");
+  revalidatePath("/admin/support");
+  redirect("/admin/support");
 }

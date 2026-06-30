@@ -9,6 +9,7 @@ const links = [
   ["نمونه‌کارها", "/admin/case-studies"],
   ["درخواست تعمیر", "/admin/repair-requests"],
   ["درخواست فارم", "/admin/farm-requests"],
+  ["ساپورت سایت", "/admin/support"],
   ["تنظیمات", "/admin/settings"]
 ];
 

@@ -60,6 +60,7 @@ export default async function AdminSettingsPage({ searchParams }: { searchParams
           <label className="toggle"><input name="enableStore" type="checkbox" defaultChecked={settings?.enableStore ?? true} /> فروشگاه فعال باشد</label>
           <label className="toggle"><input name="enableRepairForm" type="checkbox" defaultChecked={settings?.enableRepairForm ?? true} /> فرم تعمیر فعال باشد</label>
           <label className="toggle"><input name="enableFarmForm" type="checkbox" defaultChecked={settings?.enableFarmForm ?? true} /> فرم فارم فعال باشد</label>
+          <label className="toggle"><input name="enableAiSupport" type="checkbox" defaultChecked={settings?.enableAiSupport ?? true} /> ساپورت هوشمند فعال باشد</label>
           <label className="toggle"><input name="showPrices" type="checkbox" defaultChecked={settings?.showPrices ?? false} /> قیمت‌ها نمایش داده شود</label>
         </SettingsCard>
 
