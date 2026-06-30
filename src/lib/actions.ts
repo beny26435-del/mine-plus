@@ -51,7 +51,12 @@ function fieldErrors(error: z.ZodError) {
 function parseUploadedFiles(formData: FormData) {
   const value = text(formData, "uploadedFiles");
   if (!value) return [];
-  const parsed = JSON.parse(value) as Array<{ url: string; type: string; filename: string; size: number }>;
+  let parsed: Array<{ url: string; type: string; filename: string; size: number }> = [];
+  try {
+    parsed = JSON.parse(value);
+  } catch {
+    return [];
+  }
   return parsed
     .filter((file) => file.url && file.filename && typeof file.size === "number")
     .slice(0, 3)

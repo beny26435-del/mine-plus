@@ -79,12 +79,13 @@ export function RepairForm() {
     setClientError(validation);
   }
 
-  async function handleAction(formData: FormData) {
+  async function handleAction(_formData: FormData) {
     setClientError("");
     setProgress(0);
     setUploadMessage("");
-    formData.delete("files");
-    formData.delete("mediaLink");
+    const submitData = new FormData(formRef.current || undefined);
+    submitData.delete("files");
+    submitData.delete("mediaLink");
     const files = Array.from(fileRef.current?.files || []);
     if (files.length) {
       const validation = validateLeadFiles(files);
@@ -96,7 +97,7 @@ export function RepairForm() {
         setUploading(true);
         setUploadMessage("در حال آپلود فایل‌ها...");
         const uploaded = await uploadWithProgress(files, setProgress);
-        formData.set("uploadedFiles", JSON.stringify(uploaded));
+        submitData.set("uploadedFiles", JSON.stringify(uploaded));
         setUploadMessage("فایل‌ها آپلود شدند. در حال ثبت درخواست...");
       } catch (error) {
         setClientError(error instanceof Error ? error.message : "آپلود فایل انجام نشد.");
@@ -106,7 +107,7 @@ export function RepairForm() {
       }
     }
     setSaving(true);
-    action(formData);
+    action(submitData);
   }
 
   const busy = isPending || uploading || saving;
