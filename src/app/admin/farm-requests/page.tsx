@@ -3,6 +3,8 @@ import { AdminShell } from "@/components/admin/AdminShell";
 import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminFarmRequestsPage() {
   await requireAdmin();
   const requests = await prisma.farmSetupRequest.findMany({ orderBy: { createdAt: "desc" } });

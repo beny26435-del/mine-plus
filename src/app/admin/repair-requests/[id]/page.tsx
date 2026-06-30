@@ -7,6 +7,8 @@ import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { formatBytes } from "@/lib/utils";
 
+export const dynamic = "force-dynamic";
+
 export default async function RepairRequestDetailPage({ params }: { params: Promise<{ id: string }> }) {
   await requireAdmin();
   const { id } = await params;

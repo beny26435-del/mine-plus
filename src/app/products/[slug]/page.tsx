@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { whatsappLink } from "@/lib/contact";
 
+export const dynamic = "force-dynamic";
+
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const product = await prisma.product.findUnique({ where: { slug } });
@@ -11,8 +13,14 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     <article className="py-12">
       <div className="container grid gap-8 lg:grid-cols-[1fr_340px]">
         <div className="rounded-2xl border border-silver bg-white p-6 shadow-panel">
-          <div className="mb-6 grid min-h-80 place-items-center rounded-2xl bg-gradient-to-br from-navy to-graphite p-4">
-            {product.image ? <img src={product.image} alt={product.title} className="max-h-72 w-full object-contain" /> : <span className="text-gold">Mine Plus</span>}
+          <div className="mb-6 grid aspect-[4/3] max-h-[420px] place-items-center overflow-hidden rounded-2xl bg-gradient-to-br from-navy to-graphite p-4">
+            <div className="grid h-full w-full place-items-center overflow-hidden rounded-xl bg-white/95 p-4">
+              {product.image ? (
+                <img src={product.image} alt={product.title} className="block max-h-full max-w-full object-contain" />
+              ) : (
+                <span className="text-gold">Mine Plus</span>
+              )}
+            </div>
           </div>
           <p className="font-extrabold text-gold">{product.category}</p>
           <h1 className="mt-2 text-4xl font-extrabold leading-[1.4] text-graphite">{product.title}</h1>

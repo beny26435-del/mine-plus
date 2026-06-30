@@ -5,6 +5,8 @@ import type { LucideIcon } from "lucide-react";
 import { ProductCard } from "@/components/ProductCard";
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   const [settings, products, posts, cases] = await Promise.all([
     prisma.siteSettings.findUnique({ where: { id: 1 } }),

@@ -3,6 +3,8 @@ import { AdminShell } from "@/components/admin/AdminShell";
 import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminRepairRequestsPage() {
   await requireAdmin();
   const requests = await prisma.repairRequest.findMany({ orderBy: { createdAt: "desc" }, include: { attachments: true } });

@@ -4,6 +4,8 @@ import { AdminShell } from "@/components/admin/AdminShell";
 import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+
 export default async function MinersPage() {
   await requireAdmin();
   const items = await prisma.product.findMany({ where: { kind: "miner" }, orderBy: [{ sortOrder: "asc" }, { updatedAt: "desc" }] });

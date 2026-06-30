@@ -2,6 +2,8 @@ import { RepairForm } from "@/components/LeadForms";
 import { whatsappLink } from "@/lib/contact";
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+
 export default async function RepairRequestPage() {
   const settings = await prisma.siteSettings.findUnique({ where: { id: 1 } });
   return (

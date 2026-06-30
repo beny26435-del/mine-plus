@@ -4,6 +4,8 @@ import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import type { ReactNode } from "react";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminSettingsPage({ searchParams }: { searchParams: Promise<{ saved?: string }> }) {
   await requireAdmin();
   const query = await searchParams;

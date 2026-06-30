@@ -1,6 +1,8 @@
 import { ProductCard } from "@/components/ProductCard";
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+
 export default async function PartsPublicPage() {
   const parts = await prisma.product.findMany({ where: { kind: "part", status: "published" }, orderBy: [{ sortOrder: "asc" }, { updatedAt: "desc" }] });
   return (

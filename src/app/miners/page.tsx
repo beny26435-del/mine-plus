@@ -1,6 +1,8 @@
 import { ProductCard } from "@/components/ProductCard";
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+
 export default async function MinersPublicPage() {
   const miners = await prisma.product.findMany({ where: { kind: "miner", status: "published" }, orderBy: [{ sortOrder: "asc" }, { updatedAt: "desc" }] });
   return (

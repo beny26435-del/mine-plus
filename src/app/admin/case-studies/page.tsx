@@ -4,6 +4,8 @@ import { AdminShell } from "@/components/admin/AdminShell";
 import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminCasesPage() {
   await requireAdmin();
   const cases = await prisma.caseStudy.findMany({ orderBy: { updatedAt: "desc" } });

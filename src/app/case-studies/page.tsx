@@ -1,5 +1,7 @@
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+
 export default async function CaseStudiesPage() {
   const cases = await prisma.caseStudy.findMany({ where: { status: "published" }, orderBy: { updatedAt: "desc" } });
   return (

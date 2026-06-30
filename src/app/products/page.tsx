@@ -1,6 +1,8 @@
 import { ProductCard } from "@/components/ProductCard";
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+
 export default async function ProductsPage({ searchParams }: { searchParams: Promise<{ kind?: string }> }) {
   const query = await searchParams;
   const products = await prisma.product.findMany({
