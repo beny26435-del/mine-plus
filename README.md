@@ -13,6 +13,8 @@
 
 ## اجرای Local
 
+این پروژه برای production روی PostgreSQL آماده شده است. برای local هم ساده‌ترین راه این است که از همان دیتابیس Neon یا یک دیتابیس PostgreSQL جدا استفاده کنید.
+
 ```bash
 cp .env.example .env
 npm install
@@ -101,17 +103,23 @@ npm run db:studio
 
 ## Deploy
 
-برای production بهتر است `DATABASE_URL` را به PostgreSQL مثل Neon یا Supabase وصل کنید. سپس:
+برای production باید `DATABASE_URL` را به PostgreSQL مثل Neon یا Supabase وصل کنید. مقدار Neon شبیه این است:
+
+```env
+DATABASE_URL="postgresql://USER:PASSWORD@HOST/neondb?sslmode=require"
+```
+
+بعد از اولین deploy یا بعد از تغییر دیتابیس، migration و seed را اجرا کنید:
 
 ```bash
-npm run build
-npm run db:seed
+DATABASE_URL="postgresql://..." npm run prisma:deploy
+DATABASE_URL="postgresql://..." ADMIN_EMAIL="admin@mineplus.ir" ADMIN_PASSWORD="رمز قوی" npm run db:seed
 ```
 
 در Vercel این envها را تنظیم کنید:
 
 ```env
-DATABASE_URL=""
+DATABASE_URL="postgresql://..."
 ADMIN_EMAIL="admin@mineplus.ir"
 ADMIN_PASSWORD="یک رمز قوی"
 AUTH_SECRET="یک secret قوی"
@@ -122,3 +130,5 @@ UPLOAD_API_URL="http://YOUR_VPS_IP:4000/api/upload"
 UPLOAD_API_KEY="same-as-vps"
 UPLOAD_PUBLIC_BASE_URL="http://YOUR_VPS_IP:4000"
 ```
+
+اگر connection string دیتابیس یا کلید آپلود را در چت یا جای عمومی فرستادید، در Neon یا VPS مقدار جدید بسازید و در Vercel هم جایگزین کنید.
