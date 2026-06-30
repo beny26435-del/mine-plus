@@ -17,6 +17,19 @@ function sign(value: string) {
   return crypto.createHmac("sha256", getSecret()).update(value).digest("hex");
 }
 
+export function verifySessionToken(token?: string) {
+  if (!token) return null;
+  const [userId, expires, signature] = token.split(".");
+  if (!userId || !expires || !signature) return null;
+  const payload = `${userId}.${expires}`;
+  const expected = sign(payload);
+  const valid =
+    expected.length === signature.length &&
+    crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(signature));
+  if (!valid || Number(expires) < Date.now()) return null;
+  return { userId, expiresAt: Number(expires) };
+}
+
 export function createSessionToken(userId: string) {
   const expires = Date.now() + maxAge * 1000;
   const payload = `${userId}.${expires}`;
@@ -47,16 +60,9 @@ export async function destroySession() {
 export async function getAdminUser() {
   const store = await cookies();
   const token = store.get(adminSessionCookieName)?.value;
-  if (!token) return null;
-  const [userId, expires, signature] = token.split(".");
-  if (!userId || !expires || !signature) return null;
-  const payload = `${userId}.${expires}`;
-  const expected = sign(payload);
-  const valid =
-    expected.length === signature.length &&
-    crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(signature));
-  if (!valid || Number(expires) < Date.now()) return null;
-  return prisma.user.findUnique({ where: { id: userId } });
+  const session = verifySessionToken(token);
+  if (!session) return null;
+  return { id: session.userId };
 }
 
 export async function requireAdmin() {
