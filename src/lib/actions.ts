@@ -10,8 +10,7 @@ const repairSchema = z.object({
   city: z.string().min(2, "شهر را وارد کنید."),
   deviceModel: z.string().min(2, "مدل دستگاه را وارد کنید."),
   issueType: z.string().min(2, "نوع مشکل را وارد کنید."),
-  description: z.string().min(10, "توضیح مشکل کوتاه است."),
-  mediaLink: z.string().optional()
+  description: z.string().min(10, "توضیح مشکل کوتاه است.")
 });
 
 const farmSchema = z.object({
@@ -60,7 +59,7 @@ function parseUploadedFiles(formData: FormData) {
 }
 
 export async function submitRepairRequest(_: FormState, formData: FormData): Promise<FormState> {
-  const keys = ["name", "phone", "city", "deviceModel", "issueType", "mediaLink", "description"];
+  const keys = ["name", "phone", "city", "deviceModel", "issueType", "description"];
   const raw = values(formData, keys);
   const parsed = repairSchema.safeParse(raw);
   if (!parsed.success) {

@@ -28,12 +28,6 @@ export default async function RepairRequestDetailPage({ params }: { params: Prom
             <Info label="تاریخ" value={request.createdAt.toLocaleDateString("fa-IR")} />
           </dl>
           <div className="mt-5 rounded-xl bg-soft p-4 leading-8">{request.description}</div>
-          {request.mediaLink ? (
-            <div className="mt-5 rounded-xl border border-silver p-4">
-              <p className="font-extrabold">لینک دستی عکس/ویدیو</p>
-              <a href={request.mediaLink} target="_blank" className="mt-2 block break-all text-sm text-blue-700" dir="ltr">{request.mediaLink}</a>
-            </div>
-          ) : null}
           <section className="mt-6">
             <h2 className="font-extrabold">فایل‌های ارسالی مشتری</h2>
             {request.attachments.length ? (
