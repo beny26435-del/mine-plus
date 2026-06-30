@@ -14,7 +14,7 @@ const links = [
 
 export function AdminShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-soft text-graphite">
+    <div className="admin-shell min-h-screen bg-soft text-graphite">
       <aside className="fixed inset-y-0 right-0 hidden w-64 border-l border-white/10 bg-navy p-5 text-white lg:block">
         <Logo />
         <nav className="mt-8 grid gap-2 text-sm font-bold">

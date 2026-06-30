@@ -8,7 +8,7 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
   background: #0b1220;
 }
 
@@ -136,10 +136,42 @@ button {
 
 @layer components {
   .input {
-    @apply w-full rounded-xl border border-silver bg-white px-3 py-2 leading-8 outline-none transition focus:border-gold focus:ring-2 focus:ring-gold/20;
+    @apply w-full rounded-xl border border-silver bg-white px-3 py-2 leading-8 text-graphite outline-none transition placeholder:text-steel focus:border-gold focus:ring-2 focus:ring-gold/20;
   }
 
   .toggle {
     @apply flex min-h-12 items-center gap-3 rounded-xl border border-silver bg-soft px-4 py-3 text-sm font-extrabold;
+  }
+}
+
+@layer utilities {
+  .admin-shell {
+    color-scheme: light;
+  }
+
+  .admin-shell input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+  .admin-shell textarea,
+  .admin-shell select {
+    background-color: #fff !important;
+    border-color: #d9dee5 !important;
+    color: #121212 !important;
+  }
+
+  .admin-shell input::placeholder,
+  .admin-shell textarea::placeholder {
+    color: #5b6573 !important;
+    opacity: 1;
+  }
+
+  .admin-shell select option {
+    background-color: #fff;
+    color: #121212;
+  }
+
+  .admin-shell input:-webkit-autofill,
+  .admin-shell textarea:-webkit-autofill,
+  .admin-shell select:-webkit-autofill {
+    box-shadow: 0 0 0 1000px #fff inset !important;
+    -webkit-text-fill-color: #121212 !important;
   }
 }
