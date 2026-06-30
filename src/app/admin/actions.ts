@@ -190,7 +190,16 @@ export async function updateRepairRequestAction(formData: FormData) {
     where: { id: text(formData, "id") },
     data: { status: text(formData, "status"), adminNote: nullable(formData, "adminNote") }
   });
+  revalidatePath("/admin");
   revalidatePath("/admin/repair-requests");
+}
+
+export async function deleteRepairRequestAction(formData: FormData) {
+  await requireAdmin();
+  await prisma.repairRequest.delete({ where: { id: text(formData, "id") } });
+  revalidatePath("/admin");
+  revalidatePath("/admin/repair-requests");
+  redirect("/admin/repair-requests");
 }
 
 export async function updateFarmRequestAction(formData: FormData) {
@@ -199,5 +208,14 @@ export async function updateFarmRequestAction(formData: FormData) {
     where: { id: text(formData, "id") },
     data: { status: text(formData, "status"), adminNote: nullable(formData, "adminNote") }
   });
+  revalidatePath("/admin");
   revalidatePath("/admin/farm-requests");
+}
+
+export async function deleteFarmRequestAction(formData: FormData) {
+  await requireAdmin();
+  await prisma.farmSetupRequest.delete({ where: { id: text(formData, "id") } });
+  revalidatePath("/admin");
+  revalidatePath("/admin/farm-requests");
+  redirect("/admin/farm-requests");
 }

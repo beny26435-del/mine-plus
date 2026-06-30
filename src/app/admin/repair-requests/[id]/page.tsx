@@ -1,10 +1,11 @@
 import { notFound } from "next/navigation";
 import type { ReactNode } from "react";
-import { updateRepairRequestAction } from "@/app/admin/actions";
+import { deleteRepairRequestAction, updateRepairRequestAction } from "@/app/admin/actions";
 import { CopyLinkButton } from "@/components/admin/AdminFields";
 import { AdminShell } from "@/components/admin/AdminShell";
 import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { requestStatusOptions } from "@/lib/request-status";
 import { formatBytes } from "@/lib/utils";
 
 export const dynamic = "force-dynamic";
@@ -46,9 +47,14 @@ export default async function RepairRequestDetailPage({ params }: { params: Prom
         </section>
         <form action={updateRepairRequestAction} className="h-fit rounded-2xl border border-silver bg-white p-5 shadow-panel">
           <input type="hidden" name="id" value={request.id} />
-          <label className="grid gap-2 font-bold">وضعیت<select name="status" defaultValue={request.status} className="rounded-xl border border-silver px-3 py-2"><option value="new">جدید</option><option value="contacted">تماس گرفته شد</option><option value="diagnosing">در حال بررسی</option><option value="quoted">اعلام هزینه</option><option value="repairing">در حال تعمیر</option><option value="done">انجام شده</option><option value="canceled">لغو شده</option></select></label>
+          <label className="grid gap-2 font-bold">وضعیت<select name="status" defaultValue={request.status} className="rounded-xl border border-silver px-3 py-2">{requestStatusOptions.map((item) => <option key={item.value} value={item.value}>{item.label}</option>)}</select></label>
           <label className="mt-4 grid gap-2 font-bold">یادداشت داخلی<textarea name="adminNote" rows={6} defaultValue={request.adminNote || ""} className="rounded-xl border border-silver px-3 py-2" /></label>
           <button className="mt-4 w-full rounded-xl bg-gold px-5 py-3 font-extrabold text-graphite">ذخیره وضعیت</button>
+          <div className="my-5 h-px bg-silver" />
+          <button form="delete-repair-request" className="w-full rounded-xl bg-red-50 px-5 py-3 font-extrabold text-red-700" type="submit">حذف درخواست</button>
+        </form>
+        <form id="delete-repair-request" action={deleteRepairRequestAction}>
+          <input type="hidden" name="id" value={request.id} />
         </form>
       </div>
     </AdminShell>

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, CheckCircle2, Cpu, FileText, HardHat, PackageSearch, PlugZap, ShieldCheck, ShoppingBag, Wrench } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Cpu, FileText, HardHat, MessagesSquare, PackageSearch, PlugZap, ShieldCheck, ShoppingBag, Wrench } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { ProductCard } from "@/components/ProductCard";
 import { prisma } from "@/lib/prisma";
@@ -23,6 +23,7 @@ export default async function HomePage() {
     { title: "خرید ماینر", text: "مدل مناسب را بر اساس بودجه، برق و شرایط استفاده استعلام کنید.", href: "/miners", Icon: Cpu },
     { title: "قطعات و تجهیزات", text: "برای پاور، فن، کنترل‌برد و قطعات مصرفی، سازگاری را قبل از خرید چک کنید.", href: "/parts", Icon: PlugZap },
     { title: "ثبت تعمیر", text: "مشکل دستگاه را توضیح دهید و در صورت نیاز عکس یا ویدیو خطا بفرستید.", href: "/repair-request", Icon: Wrench },
+    { title: "مشاوره خرید", text: "اگر بین چند مدل یا قطعه مردد هستید، فقط نام و شماره بگذارید تا هماهنگ شود.", href: "/farm-setup", Icon: MessagesSquare },
     { title: "راه‌اندازی فارم", text: "قبل از خرید تعداد بالا، برق، تهویه، شبکه و چیدمان را بررسی کنید.", href: "/farm-setup", Icon: ShieldCheck }
   ];
 
@@ -69,7 +70,7 @@ export default async function HomePage() {
       </section>
 
       <section className="-mt-6 pb-10">
-        <div className="container relative z-10 grid gap-4 md:grid-cols-4">
+        <div className="container relative z-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {departments.map(({ title, text, href, Icon }) => (
             <Link key={title} href={href} className="group rounded-2xl border border-silver bg-white p-5 shadow-panel transition hover:-translate-y-1 hover:border-gold">
               <div className="flex items-center justify-between gap-3">
