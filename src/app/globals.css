@@ -57,28 +57,36 @@ button {
 }
 
 .hero-banner-frame {
-  animation: hero-banner-float 7s ease-in-out infinite;
+  animation: hero-banner-float 8s ease-in-out infinite;
   box-shadow:
-    0 0 0 1px rgba(242, 211, 53, 0.14),
+    0 0 0 1px rgba(242, 211, 53, 0.1),
     0 18px 34px rgba(0, 0, 0, 0.22);
 }
 
 .hero-banner-frame::before {
-  animation: hero-banner-glow 5.5s ease-in-out infinite;
-  background:
-    linear-gradient(120deg, transparent 18%, rgba(242, 211, 53, 0.42), transparent 38%),
-    radial-gradient(circle at 52% 100%, rgba(242, 211, 53, 0.3), transparent 58%);
+  animation: hero-banner-ring 7s linear infinite;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 72deg,
+    rgba(242, 211, 53, 0.74) 92deg,
+    rgba(255, 244, 128, 0.92) 106deg,
+    rgba(242, 211, 53, 0.74) 120deg,
+    transparent 144deg,
+    transparent 360deg
+  );
   content: "";
-  inset: -1px;
-  opacity: 0.58;
+  inset: -45%;
+  opacity: 0.9;
   position: absolute;
+  will-change: transform;
 }
 
 .hero-banner-frame::after {
   background: #071019;
-  border-radius: 1.35rem;
+  border-radius: calc(1.5rem - 1px);
   content: "";
-  inset: 6px;
+  inset: 1px;
   position: absolute;
 }
 
@@ -155,15 +163,9 @@ button {
   }
 }
 
-@keyframes hero-banner-glow {
-  0%,
-  100% {
-    opacity: 0.42;
-    transform: translateX(-8%);
-  }
-  50% {
-    opacity: 0.72;
-    transform: translateX(8%);
+@keyframes hero-banner-ring {
+  to {
+    transform: rotate(360deg);
   }
 }
 

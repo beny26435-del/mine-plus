@@ -18,6 +18,7 @@ export function Footer() {
             <Link href="/products">فروشگاه</Link>
             <Link href="/miners">ماینرها</Link>
             <Link href="/parts">قطعات</Link>
+            <Link href="/mining-calculator">ماشین حساب ماینینگ</Link>
             <Link href="/blog">مقالات</Link>
             <Link href="/case-studies">نمونه‌کارها</Link>
             <Link href="/repair-request">درخواست تعمیر</Link>

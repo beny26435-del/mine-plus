@@ -10,6 +10,7 @@ const links = [
   ["صفحه اصلی", "/"],
   ["ماینرها", "/miners"],
   ["قطعات", "/parts"],
+  ["ماشین حساب", "/mining-calculator"],
   ["درخواست تعمیر", "/repair-request"],
   ["راه‌اندازی فارم", "/farm-setup"],
   ["مقالات", "/blog"],

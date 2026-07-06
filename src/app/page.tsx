@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, CheckCircle2, Cpu, FileText, HardHat, MessagesSquare, PackageSearch, PlugZap, ShieldCheck, ShoppingBag, Wrench } from "lucide-react";
+import { ArrowLeft, Calculator, CheckCircle2, Cpu, FileText, HardHat, MessagesSquare, PackageSearch, PlugZap, ShieldCheck, ShoppingBag, Wrench } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { ProductCard } from "@/components/ProductCard";
 import { prisma } from "@/lib/prisma";
@@ -22,6 +22,7 @@ export default async function HomePage() {
   const departments: Array<{ title: string; text: string; href: string; Icon: LucideIcon }> = [
     { title: "خرید ماینر", text: "مدل مناسب را بر اساس بودجه، برق و شرایط استفاده استعلام کنید.", href: "/miners", Icon: Cpu },
     { title: "قطعات و تجهیزات", text: "برای پاور، فن، کنترل‌برد و قطعات مصرفی، سازگاری را قبل از خرید چک کنید.", href: "/parts", Icon: PlugZap },
+    { title: "ماشین حساب", text: "درآمد تقریبی استخراج را با داده زنده شبکه و هزینه برق محاسبه کنید.", href: "/mining-calculator", Icon: Calculator },
     { title: "ثبت تعمیر", text: "مشکل دستگاه را توضیح دهید و در صورت نیاز عکس یا ویدیو خطا بفرستید.", href: "/repair-request", Icon: Wrench },
     { title: "مشاوره خرید", text: "اگر بین چند مدل یا قطعه مردد هستید، فقط نام و شماره بگذارید تا هماهنگ شود.", href: "/farm-setup", Icon: MessagesSquare },
     { title: "راه‌اندازی فارم", text: "قبل از خرید تعداد بالا، برق، تهویه، شبکه و چیدمان را بررسی کنید.", href: "/farm-setup", Icon: ShieldCheck }
@@ -61,8 +62,8 @@ export default async function HomePage() {
               </Link>
             </div>
           </div>
-          <div className="hero-banner-frame relative overflow-hidden rounded-3xl border border-gold/15 bg-black/30 p-1.5">
-            <div className="relative z-10 aspect-[1640/720] overflow-hidden rounded-[1.15rem] bg-black/30">
+          <div className="hero-banner-frame relative overflow-hidden rounded-3xl border border-gold/10 bg-black/30 p-px">
+            <div className="relative z-10 aspect-[1640/720] overflow-hidden rounded-[1.43rem] bg-black/30">
               <Image src={settings?.bannerImage || "/images/mine-plus-banner.png"} alt="Mine Plus banner" fill sizes="(min-width: 1024px) 52vw, 100vw" className="object-cover" priority />
             </div>
           </div>
@@ -70,7 +71,7 @@ export default async function HomePage() {
       </section>
 
       <section className="-mt-6 pb-10">
-        <div className="container relative z-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="container relative z-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {departments.map(({ title, text, href, Icon }) => (
             <Link key={title} href={href} className="group rounded-2xl border border-silver bg-white p-5 shadow-panel transition hover:-translate-y-1 hover:border-gold">
               <div className="flex items-center justify-between gap-3">
