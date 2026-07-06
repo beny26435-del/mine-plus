@@ -32,6 +32,7 @@ export default async function AdminRepairRequestsPage() {
             </div>
           </div>
         ))}
+        {!requests.length ? <p className="rounded-2xl border border-silver bg-white p-5 text-sm leading-7 text-steel">هنوز درخواست تعمیری ثبت نشده است. وقتی کاربر فرم سایت را پر کند، اینجا نمایش داده می‌شود.</p> : null}
       </div>
     </AdminShell>
   );

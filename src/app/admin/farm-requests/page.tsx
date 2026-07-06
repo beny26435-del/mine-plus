@@ -34,6 +34,7 @@ export default async function AdminFarmRequestsPage() {
             </form>
           </div>
         ))}
+        {!requests.length ? <p className="rounded-2xl border border-silver bg-white p-5 text-sm leading-7 text-steel">هنوز درخواست مشاوره‌ای ثبت نشده است. درخواست‌های فرم مشاوره خرید و فارم اینجا می‌آیند.</p> : null}
       </div>
     </AdminShell>
   );

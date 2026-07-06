@@ -20,6 +20,12 @@ export default async function CaseStudiesPage() {
             </article>
           ))}
         </div>
+        {!cases.length ? (
+          <div className="mt-8 rounded-2xl border border-silver bg-white p-8 text-center shadow-panel">
+            <h2 className="text-2xl font-extrabold text-graphite">هنوز نمونه‌کاری منتشر نشده است</h2>
+            <p className="mt-3 leading-8 text-steel">بعد از ثبت نمونه‌کارهای واقعی، روند عیب‌یابی و نتیجه تست اینجا نمایش داده می‌شود.</p>
+          </div>
+        ) : null}
       </div>
     </section>
   );

@@ -6,6 +6,10 @@ import { prisma } from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
+function statusLabel(status: string) {
+  return status === "published" ? "منتشر شده" : "پیش‌نویس";
+}
+
 export default async function MinersPage() {
   await requireAdmin();
   const items = await prisma.product.findMany({ where: { kind: "miner" }, orderBy: [{ sortOrder: "asc" }, { updatedAt: "desc" }] });
@@ -15,10 +19,11 @@ export default async function MinersPage() {
       <div className="mt-6 grid gap-3">
         {items.map((item) => (
           <div key={item.id} className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-silver bg-white p-4">
-            <div><b>{item.title}</b><p className="text-sm text-steel">{item.status} | {item.priceText || "استعلامی"}</p></div>
+            <div><b>{item.title}</b><p className="text-sm text-steel">{statusLabel(item.status)} | {item.priceText || "استعلامی"}</p></div>
             <div className="flex gap-2"><Link href={`/admin/miners/${item.id}`} className="rounded-lg border border-silver px-3 py-2 text-sm font-bold">ویرایش</Link><form action={deleteProductAction}><input type="hidden" name="id" value={item.id} /><button className="rounded-lg bg-red-50 px-3 py-2 text-sm font-bold text-red-700">حذف</button></form></div>
           </div>
         ))}
+        {!items.length ? <p className="rounded-2xl border border-silver bg-white p-5 text-sm leading-7 text-steel">هنوز ماینری ثبت نشده است. از دکمه «ماینر جدید» اولین محصول را اضافه کنید.</p> : null}
       </div>
     </AdminShell>
   );

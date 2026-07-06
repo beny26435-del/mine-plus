@@ -25,6 +25,12 @@ export default async function BlogPage() {
             </Link>
           ))}
         </div>
+        {!posts.length ? (
+          <div className="mt-8 rounded-2xl border border-silver bg-white p-8 text-center shadow-panel">
+            <h2 className="text-2xl font-extrabold text-graphite">هنوز مقاله‌ای منتشر نشده است</h2>
+            <p className="mt-3 leading-8 text-steel">به‌زودی راهنماهای خرید، نگهداری و تعمیر ماینر اینجا قرار می‌گیرد.</p>
+          </div>
+        ) : null}
       </div>
     </section>
   );

@@ -31,7 +31,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         </div>
         <aside className="h-fit rounded-2xl border border-silver bg-white p-5 shadow-panel">
           <h2 className="text-xl font-extrabold text-graphite">استعلام و هماهنگی</h2>
-          <p className="mt-3 text-sm leading-7 text-steel">مدل دستگاه یا نیازتان را بفرستید تا قیمت روز، موجودی و سازگاری را دقیق‌تر اعلام کنیم.</p>
+          <p className="mt-3 text-sm leading-7 text-steel">مدل دستگاه یا نیازتان را بفرستید تا قیمت روز، موجودی و سازگاری را درست اعلام کنیم.</p>
           <Link href={whatsappLink} className="mt-5 inline-flex w-full justify-center rounded-xl bg-gold px-5 py-3 font-extrabold text-graphite">استعلام در واتساپ</Link>
           <Link href="/repair-request" className="mt-3 inline-flex w-full justify-center rounded-xl border border-silver px-5 py-3 font-extrabold text-graphite">نیاز به تعمیر دارم</Link>
         </aside>

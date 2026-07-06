@@ -32,6 +32,12 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
+        {!products.length ? (
+          <div className="rounded-2xl border border-silver bg-white p-8 text-center shadow-panel">
+            <h2 className="text-2xl font-extrabold text-graphite">فعلاً محصولی در این بخش نیست</h2>
+            <p className="mt-3 leading-8 text-steel">برای استعلام ماینر، قطعه یا خدمات فنی می‌توانید مستقیم از واتساپ پیام بدهید.</p>
+          </div>
+        ) : null}
       </div>
     </section>
   );
