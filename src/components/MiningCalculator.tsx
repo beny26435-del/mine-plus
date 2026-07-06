@@ -51,7 +51,8 @@ export function MiningCalculator() {
   const [hashrateTH, setHashrateTH] = useState("200");
   const [powerW, setPowerW] = useState("3500");
   const [electricity, setElectricity] = useState("3000");
-  const [usdToman, setUsdToman] = useState("62000");
+  const [usdToman, setUsdToman] = useState("");
+  const [usdTomanTouched, setUsdTomanTouched] = useState(false);
   const [poolFee, setPoolFee] = useState("2");
   const [devicePrice, setDevicePrice] = useState("");
 
@@ -67,6 +68,9 @@ export function MiningCalculator() {
         return;
       }
       setStats(payload.stats);
+      if (!usdTomanTouched && payload.stats.usdToman) {
+        setUsdToman(String(payload.stats.usdToman));
+      }
     } catch {
       setError("ارتباط با سرویس داده زنده برقرار نشد.");
       setStats(null);
@@ -123,13 +127,22 @@ export function MiningCalculator() {
           <NumberField label="هش‌ریت" suffix="TH/s" value={hashrateTH} setValue={setHashrateTH} />
           <NumberField label="مصرف برق" suffix="وات" value={powerW} setValue={setPowerW} />
           <NumberField label="قیمت برق" suffix="تومان / kWh" value={electricity} setValue={setElectricity} />
-          <NumberField label="نرخ دلار/تومان" suffix="تومان" value={usdToman} setValue={setUsdToman} />
+          <NumberField
+            label="نرخ دلار/تومان"
+            suffix="تومان"
+            value={usdToman}
+            setValue={(value) => {
+              setUsdTomanTouched(true);
+              setUsdToman(value);
+            }}
+            placeholder="دریافت خودکار"
+          />
           <NumberField label="کارمزد استخر" suffix="%" value={poolFee} setValue={setPoolFee} step={0.1} />
           <NumberField label="قیمت دستگاه" suffix="تومان" value={devicePrice} setValue={setDevicePrice} />
         </div>
 
         <p className="mt-5 rounded-2xl bg-soft p-4 text-sm leading-8 text-steel">
-          نرخ دلار/تومان و قیمت برق را خودتان وارد کنید تا عدد تومانی فیک نباشد. توان دستگاه‌ها مقدار مرجع است و بسته به نسخه، پاور، فریمور و شرایط کار می‌تواند تغییر کند.
+          نرخ دلار/تومان به صورت خودکار از بازار آزاد دریافت می‌شود و قابل ویرایش است. توان دستگاه‌ها مقدار مرجع است و بسته به نسخه، پاور، فریمور و شرایط کار می‌تواند تغییر کند.
         </p>
       </section>
 
@@ -167,9 +180,6 @@ export function MiningCalculator() {
                 <Info label="سختی شبکه" value={nfFaCompact.format(stats.currentDifficulty)} />
                 <Info label="هش‌ریت شبکه" value={`${nfFaCompact.format(stats.networkHashrate / 1e18)} EH/s`} />
               </div>
-              <p className="mt-4 text-xs leading-6 text-silver">
-                آخرین بروزرسانی: {new Date(stats.fetchedAt).toLocaleString("fa-IR")} | منابع: {stats.sources.join("، ")}
-              </p>
             </div>
 
             <div className="mt-5 rounded-3xl border border-gold/20 bg-gold/10 p-4">
@@ -186,12 +196,12 @@ export function MiningCalculator() {
   );
 }
 
-function NumberField({ label, suffix, value, setValue, step = 1 }: { label: string; suffix: string; value: string; setValue: (value: string) => void; step?: number }) {
+function NumberField({ label, suffix, value, setValue, step = 1, placeholder }: { label: string; suffix: string; value: string; setValue: (value: string) => void; step?: number; placeholder?: string }) {
   return (
     <label className="grid gap-2 text-sm font-extrabold text-graphite">
       {label}
       <div className="flex min-h-12 overflow-hidden rounded-xl border border-silver bg-white focus-within:border-gold">
-        <input type="number" min="0" step={step} value={value} onChange={(event) => setValue(event.target.value)} className="min-w-0 flex-1 px-3 text-left outline-none" dir="ltr" inputMode="decimal" />
+        <input type="number" min="0" step={step} value={value} onChange={(event) => setValue(event.target.value)} placeholder={placeholder} className="min-w-0 flex-1 px-3 text-left outline-none placeholder:text-right" dir="ltr" inputMode="decimal" />
         <span className="grid min-w-24 place-items-center border-r border-silver bg-soft px-3 text-xs text-steel">{suffix}</span>
       </div>
     </label>

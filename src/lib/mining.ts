@@ -1,5 +1,6 @@
 export type MiningStats = {
   btcUsd: number;
+  usdToman: number | null;
   blockHeight: number;
   blockSubsidy: number;
   currentDifficulty: number;
