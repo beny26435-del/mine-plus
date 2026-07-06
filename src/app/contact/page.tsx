@@ -9,7 +9,7 @@ export default function ContactPage() {
         <div className="mx-auto max-w-3xl rounded-2xl border border-silver bg-white p-8 text-center shadow-panel">
           <p className="font-extrabold text-gold">تماس</p>
           <h1 className="mt-2 text-4xl font-extrabold text-graphite">ارتباط با Mine Plus</h1>
-          <p className="mt-4 leading-8 text-steel">برای خرید ماینر، استعلام قطعه، ثبت تعمیر یا مشاوره فارم، مدل دستگاه و توضیح کوتاه نیازتان را آماده کنید و تماس بگیرید یا در واتساپ پیام بدهید.</p>
+          <p className="mt-4 leading-8 text-steel">برای خرید ماینر، استعلام قطعه، تعمیر دستگاه یا مشاوره فارم، مدل دستگاه و یک توضیح کوتاه از نیازتان را آماده کنید و تماس بگیرید یا در واتساپ پیام بدهید.</p>
           <div className="mt-7 flex flex-wrap justify-center gap-3">
             <a href={telHref()} className="inline-flex min-h-12 items-center gap-2 rounded-xl border border-silver px-5 py-3 font-extrabold text-graphite">
               <PhoneCall size={18} />

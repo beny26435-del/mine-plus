@@ -71,24 +71,24 @@ export async function saveSettingsAction(formData: FormData) {
     create: {
       id: 1,
       brandName: text(formData, "brandName") || "Mine Plus",
-      slogan: text(formData, "slogan") || "فروش ماینر، قطعات، تعمیرات و راه‌اندازی فارم",
+      slogan: text(formData, "slogan") || "فروش، تعمیر و راه‌اندازی ماینینگ",
       phone: normalizeIranPhone(text(formData, "phone") || "09127023327"),
       whatsappLink: text(formData, "whatsappLink") || "https://wa.me/989127023327",
       logoImage: text(formData, "logoImage") || "/images/mine-plus-logo.png",
       bannerImage: text(formData, "bannerImage") || "/images/mine-plus-banner.png",
-      heroEyebrow: text(formData, "heroEyebrow") || "Mine Plus | فروش، تعمیر و راه‌اندازی",
-      heroTitle: text(formData, "heroTitle") || "فروش، تعمیر و راه‌اندازی تجهیزات استخراج",
-      heroText: text(formData, "heroText") || "اگر قصد خرید ماینر، تامین قطعه، تعمیر دستگاه یا راه‌اندازی فارم دارید، Mine Plus کمک می‌کند مسیر درست را با اطلاعات فنی روشن‌تر انتخاب کنید.",
-      storeTitle: text(formData, "storeTitle") || "ماینر و قطعه را با اطلاعات روشن‌تر انتخاب کنید",
-      storeText: text(formData, "storeText") || "محصولات منتخب برای شروع استعلام نمایش داده شده‌اند. برای خرید دستگاه، تامین قطعه یا بررسی سازگاری، وارد بخش مربوط شوید.",
-      servicesTitle: text(formData, "servicesTitle") || "خدمات Mine Plus فقط فروش محصول نیست",
-      servicesText: text(formData, "servicesText") || "اگر برای خرید، تعمیر یا راه‌اندازی فارم تصمیم می‌گیرید، بهتر است شرایط دستگاه، برق، تهویه و هزینه‌های احتمالی از ابتدا مشخص باشد.",
-      repairCtaTitle: text(formData, "repairCtaTitle") || "دستگاه شما خطا دارد یا هش نمی‌دهد؟",
-      repairCtaText: text(formData, "repairCtaText") || "مشکل دستگاه را ثبت کنید و اگر عکس یا ویدیو از خطا دارید همان‌جا ارسال کنید تا بررسی اولیه دقیق‌تر انجام شود.",
-      farmCtaTitle: text(formData, "farmCtaTitle") || "برای فارم، قبل از خرید تجهیزات برنامه‌ریزی کنید",
-      farmCtaText: text(formData, "farmCtaText") || "برق، تهویه، چیدمان، شبکه و نگهداری باید قبل از خرید تعداد بالا بررسی شوند تا هزینه‌های بعدی قابل کنترل باشد.",
-      contentTitle: text(formData, "contentTitle") || "راهنماها و نمونه‌کارهای Mine Plus",
-      contentText: text(formData, "contentText") || "برای تصمیم بهتر، راهنماهای خرید، نکات نگهداری و نمونه‌کارهای تعمیرات را ببینید."
+      heroEyebrow: text(formData, "heroEyebrow") || "Mine Plus | فروش، تعمیر و راه‌اندازی فارم",
+      heroTitle: text(formData, "heroTitle") || "فروش ماینر، قطعات و راه‌اندازی فارم",
+      heroText: text(formData, "heroText") || "برای خرید ماینر، تأمین قطعه یا تعمیر دستگاه، اول شرایط برق، مدل دستگاه و نیاز واقعی شما را بررسی می‌کنیم؛ بعد قیمت و مسیر انجام کار را شفاف می‌گوییم.",
+      storeTitle: text(formData, "storeTitle") || "ماینر و قطعه را با خیال راحت‌تر استعلام کنید",
+      storeText: text(formData, "storeText") || "مدل دستگاه، موجودی و سازگاری قطعه را قبل از خرید چک می‌کنیم تا وقت و هزینه‌تان صرف انتخاب اشتباه نشود.",
+      servicesTitle: text(formData, "servicesTitle") || "کنار فروش، کار فنی هم انجام می‌دهیم",
+      servicesText: text(formData, "servicesText") || "از انتخاب دستگاه تا تعمیر و چیدمان فارم، تمرکز ما روی تصمیم‌های عملی است؛ چیزی که با برق، فضا و بودجه شما جور دربیاید.",
+      repairCtaTitle: text(formData, "repairCtaTitle") || "ماینر خطا می‌دهد یا هش‌ریت افت کرده؟",
+      repairCtaText: text(formData, "repairCtaText") || "مدل دستگاه، توضیح خطا و اگر دارید عکس یا ویدیو بفرستید تا قبل از هر هزینه‌ای مسیر بررسی مشخص شود.",
+      farmCtaTitle: text(formData, "farmCtaTitle") || "برای فارم، قبل از خرید تعداد بالا حساب‌وکتاب کنید",
+      farmCtaText: text(formData, "farmCtaText") || "برق، تهویه، صدا، شبکه و محل نصب اگر از اول درست دیده نشوند، بعداً هزینه‌ساز می‌شوند.",
+      contentTitle: text(formData, "contentTitle") || "راهنماها و نمونه‌کارهای کاربردی",
+      contentText: text(formData, "contentText") || "چند راهنمای کوتاه و چند نمونه از کارهای انجام‌شده را اینجا می‌گذاریم تا تصمیم‌گیری ساده‌تر شود."
     }
   });
   revalidatePath("/", "layout");

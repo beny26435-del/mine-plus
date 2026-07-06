@@ -16,13 +16,13 @@ export default async function AdminSettingsPage({ searchParams }: { searchParams
         <div>
           <p className="font-extrabold text-gold">مدیریت محتوای سایت</p>
           <h1 className="mt-2 text-3xl font-extrabold">تنظیمات Mine Plus</h1>
-          <p className="mt-2 max-w-2xl leading-8 text-steel">متن‌های اصلی صفحه اول، مسیر لوگو و بنر، لینک‌های تماس و وضعیت فرم‌ها از این بخش تغییر می‌کند.</p>
+          <p className="mt-2 max-w-2xl leading-8 text-steel">متن‌های صفحه اول، مسیر لوگو و بنر، لینک‌های تماس و فعال بودن فرم‌ها از اینجا تغییر می‌کند.</p>
         </div>
         {query.saved ? <p className="rounded-xl bg-green-50 px-4 py-3 text-sm font-bold text-green-700">تنظیمات ذخیره شد.</p> : null}
       </div>
 
       <form action={saveSettingsAction} className="mt-6 grid gap-6">
-        <SettingsCard title="هویت برند و تماس" description="اطلاعاتی که در هدر، فوتر و صفحه تماس استفاده می‌شود.">
+        <SettingsCard title="هویت برند و تماس" description="اطلاعاتی که کاربر در هدر، فوتر و صفحه تماس می‌بیند.">
           <Field label="نام برند"><input name="brandName" defaultValue={settings?.brandName || "Mine Plus"} className="input" /></Field>
           <Field label="شعار کوتاه"><input name="slogan" defaultValue={settings?.slogan || ""} className="input" /></Field>
           <Field label="شماره تماس"><input name="phone" dir="ltr" defaultValue={settings?.phone || "09127023327"} className="input text-left" /></Field>
@@ -33,13 +33,13 @@ export default async function AdminSettingsPage({ searchParams }: { searchParams
           <Field label="ساعات کاری"><input name="workingHours" defaultValue={settings?.workingHours || ""} className="input" /></Field>
         </SettingsCard>
 
-        <SettingsCard title="تصاویر برند" description="بنر صفحه اول نباید لوگوی هدر باشد. لوگو و بنر مسیرهای جدا دارند.">
+        <SettingsCard title="تصاویر برند" description="لوگوی کوچک برای هدر است و بنر برای بخش‌های بزرگ‌تر سایت استفاده می‌شود.">
           <Field label="مسیر لوگو"><input name="logoImage" dir="ltr" defaultValue={settings?.logoImage || "/images/mine-plus-logo.png"} className="input text-left" /></Field>
           <Field label="مسیر بنر"><input name="bannerImage" dir="ltr" defaultValue={settings?.bannerImage || "/images/mine-plus-banner.png"} className="input text-left" /></Field>
         </SettingsCard>
 
-        <SettingsCard title="متن‌های صفحه اصلی" description="این متن‌ها مستقیم در صفحه اول سایت دیده می‌شوند؛ کوتاه، روشن و مشتری‌محور بنویسید.">
-          <Field label="برچسب بالای Hero"><input name="heroEyebrow" defaultValue={settings?.heroEyebrow || "Mine Plus | فروش، تعمیر و راه‌اندازی"} className="input" /></Field>
+        <SettingsCard title="متن‌های صفحه اصلی" description="این متن‌ها مستقیم در صفحه اول دیده می‌شوند. کوتاه، واضح و شبیه گفت‌وگوی واقعی بنویسید.">
+          <Field label="برچسب بالای Hero"><input name="heroEyebrow" defaultValue={settings?.heroEyebrow || "Mine Plus | فروش، تعمیر و راه‌اندازی فارم"} className="input" /></Field>
           <Field label="عنوان اصلی Hero"><input name="heroTitle" defaultValue={settings?.heroTitle || ""} className="input" /></Field>
           <Field label="توضیح Hero" wide><textarea name="heroText" rows={4} defaultValue={settings?.heroText || ""} className="input" /></Field>
           <Field label="عنوان بخش فروشگاه"><input name="storeTitle" defaultValue={settings?.storeTitle || ""} className="input" /></Field>
@@ -54,13 +54,13 @@ export default async function AdminSettingsPage({ searchParams }: { searchParams
           <Field label="متن محتوا و نمونه‌کار"><textarea name="contentText" rows={3} defaultValue={settings?.contentText || ""} className="input" /></Field>
         </SettingsCard>
 
-        <SettingsCard title="سئو و فعال‌سازی بخش‌ها" description="اگر بخشی فعال نباشد، مسیر مربوطه همچنان کنترل‌شده و بدون خطای بد نمایش داده می‌شود.">
+        <SettingsCard title="سئو و فعال‌سازی بخش‌ها" description="بخش‌هایی که خاموش باشند از تجربه کاربر حذف می‌شوند و صفحه خالی یا خطای بد نشان داده نمی‌شود.">
           <Field label="Meta title"><input name="defaultMetaTitle" defaultValue={settings?.defaultMetaTitle || ""} className="input" /></Field>
           <Field label="Meta description" wide><textarea name="defaultMetaDescription" rows={3} defaultValue={settings?.defaultMetaDescription || ""} className="input" /></Field>
           <label className="toggle"><input name="enableStore" type="checkbox" defaultChecked={settings?.enableStore ?? true} /> فروشگاه فعال باشد</label>
           <label className="toggle"><input name="enableRepairForm" type="checkbox" defaultChecked={settings?.enableRepairForm ?? true} /> فرم تعمیر فعال باشد</label>
           <label className="toggle"><input name="enableFarmForm" type="checkbox" defaultChecked={settings?.enableFarmForm ?? true} /> فرم فارم فعال باشد</label>
-          <label className="toggle"><input name="enableAiSupport" type="checkbox" defaultChecked={settings?.enableAiSupport ?? true} /> ساپورت هوشمند فعال باشد</label>
+          <label className="toggle"><input name="enableAiSupport" type="checkbox" defaultChecked={settings?.enableAiSupport ?? true} /> پشتیبانی سایت فعال باشد</label>
           <label className="toggle"><input name="showPrices" type="checkbox" defaultChecked={settings?.showPrices ?? false} /> قیمت‌ها نمایش داده شود</label>
         </SettingsCard>
 

@@ -108,8 +108,8 @@ export function MiningCalculator() {
       <section className="rounded-3xl border border-silver bg-white p-5 shadow-panel">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <p className="font-extrabold text-gold">ورودی دستگاه</p>
-            <h2 className="mt-1 text-2xl font-extrabold text-graphite">مشخصات ماینر و هزینه برق</h2>
+            <p className="font-extrabold text-gold">مشخصات دستگاه</p>
+            <h2 className="mt-1 text-2xl font-extrabold text-graphite">اعداد ماینر و هزینه برق</h2>
           </div>
           <button onClick={loadStats} disabled={loading} className="inline-flex items-center gap-2 rounded-xl border border-silver px-4 py-2 text-sm font-extrabold text-graphite disabled:opacity-60">
             {loading ? <Loader2 size={16} className="animate-spin" /> : <RotateCw size={16} />}
@@ -142,26 +142,26 @@ export function MiningCalculator() {
         </div>
 
         <p className="mt-5 rounded-2xl bg-soft p-4 text-sm leading-8 text-steel">
-          نرخ دلار/تومان به صورت خودکار از بازار آزاد دریافت می‌شود و قابل ویرایش است. توان دستگاه‌ها مقدار مرجع است و بسته به نسخه، پاور، فریمور و شرایط کار می‌تواند تغییر کند.
+          نرخ دلار به‌صورت خودکار پر می‌شود، اما می‌توانید آن را تغییر بدهید. توان هر دستگاه عدد مرجع است و با پاور، فریمور و شرایط کار فرق می‌کند.
         </p>
       </section>
 
       <section className="rounded-3xl border border-gold/20 bg-gradient-to-br from-navy to-graphite p-5 text-white shadow-panel">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="font-extrabold text-gold">نتیجه زنده</p>
-            <h2 className="mt-1 text-2xl font-extrabold">درآمد تقریبی ماینینگ</h2>
+            <p className="font-extrabold text-gold">نتیجه محاسبه</p>
+            <h2 className="mt-1 text-2xl font-extrabold">برآورد درآمد ماینر</h2>
           </div>
           <Calculator className="text-gold" size={28} />
         </div>
 
         {loading ? (
           <div className="mt-8 flex min-h-72 items-center justify-center rounded-3xl border border-white/10 bg-white/5">
-            <p className="inline-flex items-center gap-2 font-extrabold text-silver"><Loader2 className="animate-spin" /> دریافت داده زنده...</p>
+            <p className="inline-flex items-center gap-2 font-extrabold text-silver"><Loader2 className="animate-spin" /> در حال دریافت داده‌های بازار...</p>
           </div>
         ) : error || !result || !stats ? (
           <div className="mt-8 rounded-3xl border border-red-400/30 bg-red-500/10 p-5 text-red-100">
-            <h3 className="font-extrabold">محاسبه واقعی فعلاً ممکن نیست</h3>
+            <h3 className="font-extrabold">الان نمی‌شود دقیق حساب کرد</h3>
             <p className="mt-2 leading-8">{error || "داده زنده در دسترس نیست."}</p>
           </div>
         ) : (
@@ -187,7 +187,7 @@ export function MiningCalculator() {
               <p className="mt-2 text-2xl font-extrabold">
                 {result.breakEvenDays ? `${nfFa.format(Math.ceil(result.breakEvenDays))} روز` : "قابل محاسبه نیست"}
               </p>
-              <p className="mt-2 text-sm leading-7 text-silver">اگر قیمت دستگاه وارد نشود یا سود خالص منفی باشد، برگشت سرمایه نمایش داده نمی‌شود.</p>
+              <p className="mt-2 text-sm leading-7 text-silver">اگر قیمت دستگاه را وارد نکنید یا سود خالص منفی باشد، برگشت سرمایه نمایش داده نمی‌شود.</p>
             </div>
           </>
         )}

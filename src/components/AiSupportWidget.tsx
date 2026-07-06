@@ -55,7 +55,7 @@ export function AiSupportWidget() {
   }, [messages, open]);
 
   const activated = Boolean(leadId);
-  const title = useMemo(() => (activated ? "پشتیبانی هوشمند Mine Plus" : "شروع پشتیبانی"), [activated]);
+  const title = useMemo(() => (activated ? "پشتیبانی Mine Plus" : "مشاوره سریع"), [activated]);
 
   if (!loaded || !enabled) return null;
 
@@ -135,7 +135,7 @@ export function AiSupportWidget() {
               </span>
               <div>
                 <h2 className="text-sm font-extrabold">{title}</h2>
-                <p className="text-xs text-silver">پاسخ‌گویی اولیه بدون هزینه</p>
+                <p className="text-xs text-silver">برای خرید، تعمیر، قطعه و فارم</p>
               </div>
             </div>
             <button type="button" onClick={() => setOpen(false)} className="grid h-9 w-9 place-items-center rounded-xl border border-white/10 text-gold" aria-label="بستن پشتیبانی">
@@ -146,7 +146,7 @@ export function AiSupportWidget() {
           {!activated ? (
             <form onSubmit={startSupport} className="grid gap-3 p-4">
               <p className="rounded-2xl bg-soft p-3 text-sm leading-7 text-steel">
-                برای اینکه مشاوره گم نشود، اول نام و شماره تماس را وارد کنید. بعد از آن دستیار فعال می‌شود.
+                نام و شماره‌ات را بگذار تا گفت‌وگو ثبت شود. بعد می‌توانی سوالت را درباره خرید، قطعه، تعمیر یا فارم بنویسی.
               </p>
               <label className="grid gap-1 text-sm font-extrabold">
                 نام و نام خانوادگی
@@ -161,7 +161,7 @@ export function AiSupportWidget() {
               {error ? <p className="rounded-xl bg-red-50 p-3 text-xs font-bold text-red-700">{error}</p> : null}
               <button disabled={busy} className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-gold px-4 py-2 font-extrabold text-graphite disabled:cursor-not-allowed disabled:opacity-70">
                 {busy ? <Loader2 size={17} className="animate-spin" /> : <MessageCircle size={17} />}
-                فعال کردن ساپورت
+                شروع گفت‌وگو
               </button>
             </form>
           ) : (
@@ -194,7 +194,7 @@ export function AiSupportWidget() {
                   }}
                   className="flex gap-2"
                 >
-                  <input value={draft} onChange={(event) => setDraft(event.target.value)} placeholder="سوال خود را بنویسید..." className="min-h-11 flex-1 rounded-xl border border-silver bg-white px-3 text-sm outline-none focus:border-gold" />
+                  <input value={draft} onChange={(event) => setDraft(event.target.value)} placeholder="سوالت را بنویس..." className="min-h-11 flex-1 rounded-xl border border-silver bg-white px-3 text-sm outline-none focus:border-gold" />
                   <button disabled={busy || !draft.trim()} className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-gold text-graphite disabled:cursor-not-allowed disabled:opacity-60" aria-label="ارسال پیام">
                     <Send size={18} />
                   </button>
@@ -212,7 +212,7 @@ export function AiSupportWidget() {
         className="inline-flex min-h-12 items-center gap-2 rounded-2xl bg-gold px-4 py-3 font-extrabold text-graphite shadow-[0_18px_45px_rgba(242,211,53,0.28)] transition hover:-translate-y-0.5"
       >
         <Bot size={20} />
-        ساپورت AI
+        مشاوره سریع
       </button>
     </div>
   );

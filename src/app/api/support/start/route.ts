@@ -14,7 +14,7 @@ const schema = z.object({
 export async function POST(request: Request) {
   const settings = await prisma.siteSettings.findUnique({ where: { id: 1 }, select: { enableAiSupport: true } });
   if (settings?.enableAiSupport === false) {
-    return NextResponse.json({ success: false, message: "ساپورت هوشمند فعلاً غیرفعال است." }, { status: 403 });
+    return NextResponse.json({ success: false, message: "پشتیبانی سایت فعلاً غیرفعال است." }, { status: 403 });
   }
 
   const payload = await request.json().catch(() => ({}));
@@ -22,7 +22,7 @@ export async function POST(request: Request) {
   if (!parsed.success) {
     const fieldErrors: Record<string, string> = {};
     for (const issue of parsed.error.errors) fieldErrors[String(issue.path[0])] ||= issue.message;
-    return NextResponse.json({ success: false, message: "اطلاعات را بررسی کنید.", fieldErrors }, { status: 400 });
+    return NextResponse.json({ success: false, message: "نام و شماره تماس را بررسی کنید.", fieldErrors }, { status: 400 });
   }
 
   const welcome = supportWelcomeMessage(parsed.data.fullName.trim());

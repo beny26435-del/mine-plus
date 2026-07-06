@@ -14,8 +14,8 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
       <div className="container">
         <div className="mb-7 text-center">
           <p className="font-extrabold text-gold">فروشگاه</p>
-          <h1 className="mt-2 text-4xl font-extrabold text-graphite">ماینر، قطعات و خدمات قابل استعلام</h1>
-          <p className="mx-auto mt-4 max-w-2xl leading-8 text-steel">محصول موردنظر را انتخاب کنید تا درباره موجودی، سازگاری با دستگاه، شرایط تحویل و قیمت روز هماهنگی انجام شود.</p>
+          <h1 className="mt-2 text-4xl font-extrabold text-graphite">ماینر، قطعات و خدمات Mine Plus</h1>
+          <p className="mx-auto mt-4 max-w-2xl leading-8 text-steel">محصول یا خدمت موردنظرتان را ببینید. برای قیمت روز، موجودی و سازگاری با دستگاه، سریع‌ترین راه استعلام در واتساپ است.</p>
         </div>
         <div className="mb-6 flex flex-wrap justify-center gap-2">
           {[

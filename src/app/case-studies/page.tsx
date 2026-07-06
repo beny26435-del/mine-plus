@@ -7,7 +7,9 @@ export default async function CaseStudiesPage() {
   return (
     <section className="py-12">
       <div className="container">
-        <h1 className="text-4xl font-extrabold text-graphite">نمونه‌کارهای تعمیرات</h1>
+        <p className="font-extrabold text-gold">کارهای انجام‌شده</p>
+        <h1 className="mt-2 text-4xl font-extrabold text-graphite">نمونه‌کارهای تعمیرات</h1>
+        <p className="mt-4 max-w-2xl leading-8 text-steel">چند نمونه از عیب‌هایی که بررسی شده‌اند؛ برای اینکه بهتر ببینید روند کار چطور پیش می‌رود.</p>
         <div className="mt-8 grid gap-5 md:grid-cols-2">
           {cases.map((item) => (
             <article key={item.id} className="rounded-2xl border border-silver bg-white p-5 shadow-panel">

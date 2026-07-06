@@ -68,7 +68,7 @@ export async function submitRepairRequest(_: FormState, formData: FormData): Pro
   const raw = values(formData, keys);
   const parsed = repairSchema.safeParse(raw);
   if (!parsed.success) {
-    return { ok: false, message: "اطلاعات فرم را بررسی کنید.", fieldErrors: fieldErrors(parsed.error), values: raw };
+    return { ok: false, message: "چند مورد در فرم نیاز به اصلاح دارد.", fieldErrors: fieldErrors(parsed.error), values: raw };
   }
 
   try {
@@ -81,9 +81,9 @@ export async function submitRepairRequest(_: FormState, formData: FormData): Pro
       }
     });
   } catch {
-    return { ok: false, message: "ثبت درخواست انجام نشد. لطفاً دوباره تلاش کنید.", values: raw };
+    return { ok: false, message: "درخواست ثبت نشد. لطفاً چند لحظه دیگر دوباره امتحان کنید.", values: raw };
   }
-  return { ok: true, message: "درخواست تعمیر ثبت شد. برای هماهنگی سریع‌تر می‌توانید در واتساپ هم پیام بدهید." };
+  return { ok: true, message: "درخواست تعمیر ثبت شد. اگر لازم باشد برای هماهنگی بیشتر با شما تماس می‌گیریم." };
 }
 
 export async function submitFarmSetupRequest(_: FormState, formData: FormData): Promise<FormState> {
@@ -91,13 +91,13 @@ export async function submitFarmSetupRequest(_: FormState, formData: FormData): 
   const raw = values(formData, keys);
   const parsed = farmSchema.safeParse(raw);
   if (!parsed.success) {
-    return { ok: false, message: "اطلاعات فرم را بررسی کنید.", fieldErrors: fieldErrors(parsed.error), values: raw };
+    return { ok: false, message: "چند مورد در فرم نیاز به اصلاح دارد.", fieldErrors: fieldErrors(parsed.error), values: raw };
   }
 
   try {
     await prisma.farmSetupRequest.create({ data: { ...parsed.data, phone: normalizeIranPhone(parsed.data.phone) } });
   } catch {
-    return { ok: false, message: "ثبت درخواست انجام نشد. لطفاً دوباره تلاش کنید.", values: raw };
+    return { ok: false, message: "درخواست ثبت نشد. لطفاً چند لحظه دیگر دوباره امتحان کنید.", values: raw };
   }
-  return { ok: true, message: "درخواست راه‌اندازی فارم ثبت شد. تیم Mine Plus برای بررسی اولیه با شما هماهنگ می‌کند." };
+  return { ok: true, message: "درخواست شما ثبت شد. برای مشاوره خرید یا فارم با شما هماهنگ می‌کنیم." };
 }

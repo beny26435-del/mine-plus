@@ -13,7 +13,7 @@ const schema = z.object({
 export async function POST(request: Request) {
   const settings = await prisma.siteSettings.findUnique({ where: { id: 1 }, select: { enableAiSupport: true } });
   if (settings?.enableAiSupport === false) {
-    return NextResponse.json({ success: false, message: "ساپورت هوشمند فعلاً غیرفعال است." }, { status: 403 });
+    return NextResponse.json({ success: false, message: "پشتیبانی سایت فعلاً غیرفعال است." }, { status: 403 });
   }
 
   const payload = await request.json().catch(() => ({}));

@@ -10,8 +10,8 @@ export default async function PartsPublicPage() {
       <div className="container">
         <div className="mb-8 text-center">
           <p className="font-extrabold text-gold">قطعات ماینر</p>
-          <h1 className="mt-2 text-4xl font-extrabold text-graphite">قطعه درست را با سازگاری مطمئن‌تر انتخاب کنید</h1>
-          <p className="mx-auto mt-4 max-w-2xl leading-8 text-steel">برای پاور، فن، کنترل‌برد، کابل و قطعات مصرفی، مدل دستگاه و نوع مشکل را اعلام کنید تا قطعه مناسب‌تر استعلام شود.</p>
+          <h1 className="mt-2 text-4xl font-extrabold text-graphite">قطعه‌ای که واقعاً به دستگاه بخورد</h1>
+          <p className="mx-auto mt-4 max-w-2xl leading-8 text-steel">مدل ماینر و نوع خرابی را بفرستید تا پاور، فن، کنترل‌برد یا کابل اشتباه انتخاب نشود.</p>
         </div>
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{parts.map((product) => <ProductCard key={product.id} product={product} />)}</div>
       </div>

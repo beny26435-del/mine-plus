@@ -85,7 +85,7 @@ export function RepairForm() {
     setSelectedFiles(files);
     setUploadedFiles([]);
     setProgress(0);
-    setUploadMessage(files.length ? `${new Intl.NumberFormat("fa-IR").format(files.length)} فایل آماده آپلود است.` : "");
+      setUploadMessage(files.length ? `${new Intl.NumberFormat("fa-IR").format(files.length)} فایل انتخاب شد و آماده آپلود است.` : "");
     const validation = validateLeadFiles(files);
     setClientError(validation);
     if (validation || !files.length) return;
@@ -95,7 +95,7 @@ export function RepairForm() {
       setUploadMessage("در حال آپلود فایل‌ها...");
       const uploaded = await uploadWithProgress(files, setProgress);
       setUploadedFiles(uploaded.map((file, index) => ({ ...file, originalName: files[index]?.name || file.filename })));
-      setUploadMessage("فایل‌ها آپلود شدند. اگر لازم بود می‌توانید قبل از ثبت، فایل را حذف کنید.");
+      setUploadMessage("فایل‌ها آپلود شدند. اگر خواستید، قبل از ثبت می‌توانید حذفشان کنید.");
     } catch (error) {
       setUploadedFiles([]);
       setClientError(error instanceof Error ? error.message : "آپلود فایل انجام نشد.");
@@ -107,7 +107,7 @@ export function RepairForm() {
 
   function removeUploadedFile(index: number) {
     setUploadedFiles((files) => files.filter((_, fileIndex) => fileIndex !== index));
-    setUploadMessage("فایل از درخواست حذف شد. برای ارسال فایل جدید دوباره انتخاب کنید.");
+    setUploadMessage("فایل حذف شد. اگر فایل دیگری دارید دوباره انتخاب کنید.");
     if (fileRef.current) fileRef.current.value = "";
     setSelectedFiles([]);
     setProgress(0);
@@ -124,7 +124,7 @@ export function RepairForm() {
     }
     if (uploadedFiles.length) {
       submitData.set("uploadedFiles", JSON.stringify(uploadedFiles.map(({ originalName: _originalName, ...file }) => file)));
-      setUploadMessage("فایل‌ها آماده‌اند. در حال ثبت درخواست...");
+      setUploadMessage("فایل‌ها آماده‌اند. درخواست در حال ثبت است...");
     }
     setSaving(true);
     action(submitData);
@@ -155,7 +155,7 @@ export function RepairForm() {
       </div>
       <div className="md:col-span-2 rounded-xl border border-dashed border-silver bg-soft p-4">
         <label className="font-extrabold text-graphite">ارسال عکس یا ویدیو خطا</label>
-        <p className="mt-1 text-sm leading-7 text-steel">ارسال عکس یا ویدیو از صفحه وضعیت، خطا، صدای فن یا وضعیت هش‌ریت اختیاری است.</p>
+        <p className="mt-1 text-sm leading-7 text-steel">اگر از صفحه وضعیت، صدای فن، هش‌ریت یا خطای دستگاه عکس یا ویدیو دارید، همین‌جا بفرستید. الزامی نیست، ولی بررسی را سریع‌تر می‌کند.</p>
         <input
           ref={fileRef}
           type="file"
@@ -191,7 +191,7 @@ export function RepairForm() {
         ) : null}
       </div>
       <div className="md:col-span-2">
-        <textarea name="description" defaultValue={state.values?.description} rows={5} placeholder="علائم، خطاها و توضیحات دستگاه" className="w-full rounded-xl border border-silver bg-soft px-4 py-3 outline-none focus:border-gold" />
+        <textarea name="description" defaultValue={state.values?.description} rows={5} placeholder="مثلاً دستگاه روشن می‌شود ولی هش نمی‌دهد، فن با دور بالا کار می‌کند یا خطای پاور دارد" className="w-full rounded-xl border border-silver bg-soft px-4 py-3 outline-none focus:border-gold" />
         <FieldError message={state.fieldErrors?.description} />
       </div>
       <div className="md:col-span-2"><SubmitButton label={uploading ? `در حال آپلود... ${percent}٪` : busy ? "در حال ثبت درخواست..." : "ثبت درخواست تعمیر"} disabled={busy || Boolean(clientError)} busy={busy} /></div>
@@ -219,7 +219,7 @@ export function FarmForm() {
         <FieldError message={state.fieldErrors?.phone} />
       </div>
       <p className="rounded-xl bg-soft p-4 text-sm leading-7 text-steel md:col-span-2">
-        همین دو مورد کافی است. برای جزئیات خرید، فارم یا شرایط نصب، بعد از ثبت درخواست با شما هماهنگ می‌شود.
+        همین دو مورد کافی است. درباره خرید، قطعه یا شرایط فارم در تماس صحبت می‌کنیم.
       </p>
       <div className="md:col-span-2"><SubmitButton label={isPending ? "در حال ثبت درخواست..." : "درخواست تماس مشاوره"} disabled={isPending} busy={isPending} /></div>
       {state.message ? <p className={`md:col-span-2 rounded-xl p-3 text-sm font-bold ${state.ok ? "bg-green-50 text-green-700" : "bg-red-50 text-red-700"}`}>{state.message}</p> : null}

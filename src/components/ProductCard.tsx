@@ -37,13 +37,13 @@ export function ProductCard({
       </div>
       <h3 className="text-xl font-extrabold text-graphite">{product.title}</h3>
       <p className="mt-3 line-clamp-3 text-sm leading-8 text-steel">{product.shortDescription}</p>
-      <p className="mt-4 font-extrabold text-navy">{product.priceText || "استعلام قیمت"}</p>
+      <p className="mt-4 font-extrabold text-navy">{product.priceText || "قیمت با استعلام"}</p>
       <div className="mt-auto flex flex-wrap gap-2 pt-5">
         <Link href={`/products/${product.slug}`} className="rounded-xl border border-silver px-4 py-2 text-sm font-extrabold text-graphite transition hover:border-gold/60">
           جزئیات
         </Link>
         <Link href="/contact" className="rounded-xl bg-gold px-4 py-2 text-sm font-extrabold text-graphite transition hover:bg-gold/90">
-          استعلام
+          استعلام سریع
         </Link>
       </div>
       </div>
