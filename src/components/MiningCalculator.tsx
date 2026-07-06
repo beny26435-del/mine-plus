@@ -16,23 +16,44 @@ type StatsResponse = {
 };
 
 const presetMiners = [
+  { label: "Antminer S9", hashrateTH: 13.5, powerW: 1320 },
+  { label: "Antminer T17", hashrateTH: 40, powerW: 2200 },
+  { label: "Antminer S17 Pro", hashrateTH: 53, powerW: 2094 },
+  { label: "Antminer S19", hashrateTH: 95, powerW: 3250 },
+  { label: "Antminer S19j Pro", hashrateTH: 104, powerW: 3068 },
   { label: "Antminer S19 Pro", hashrateTH: 110, powerW: 3250 },
+  { label: "Antminer S19 XP", hashrateTH: 141, powerW: 3010 },
+  { label: "Antminer T21", hashrateTH: 190, powerW: 3610 },
   { label: "Antminer S21", hashrateTH: 200, powerW: 3500 },
+  { label: "Antminer S21 Pro", hashrateTH: 234, powerW: 3531 },
+  { label: "Antminer S21 Hyd", hashrateTH: 335, powerW: 5360 },
+  { label: "Whatsminer M21S", hashrateTH: 56, powerW: 3360 },
+  { label: "Whatsminer M30S", hashrateTH: 88, powerW: 3344 },
   { label: "Whatsminer M30S++", hashrateTH: 112, powerW: 3472 },
-  { label: "Whatsminer M60", hashrateTH: 170, powerW: 3380 }
+  { label: "Whatsminer M50", hashrateTH: 114, powerW: 3306 },
+  { label: "Whatsminer M50S", hashrateTH: 126, powerW: 3276 },
+  { label: "Whatsminer M60", hashrateTH: 170, powerW: 3383 },
+  { label: "Whatsminer M60S", hashrateTH: 186, powerW: 3441 },
+  { label: "Whatsminer M63 Hyd", hashrateTH: 334, powerW: 6646 },
+  { label: "Avalon A1246", hashrateTH: 90, powerW: 3420 },
+  { label: "Avalon A1366", hashrateTH: 130, powerW: 3250 },
+  { label: "Avalon A1466", hashrateTH: 150, powerW: 3230 }
 ];
+
+function numericValue(value: string) {
+  return Number(value.replace(/,/g, "")) || 0;
+}
 
 export function MiningCalculator() {
   const [stats, setStats] = useState<MiningStats | null>(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
-  const [hashrateTH, setHashrateTH] = useState(200);
-  const [powerW, setPowerW] = useState(3500);
-  const [electricity, setElectricity] = useState(3000);
-  const [usdToman, setUsdToman] = useState(62000);
-  const [poolFee, setPoolFee] = useState(2);
-  const [devicePrice, setDevicePrice] = useState(0);
-  const [avgFee, setAvgFee] = useState(0);
+  const [hashrateTH, setHashrateTH] = useState("200");
+  const [powerW, setPowerW] = useState("3500");
+  const [electricity, setElectricity] = useState("3000");
+  const [usdToman, setUsdToman] = useState("62000");
+  const [poolFee, setPoolFee] = useState("2");
+  const [devicePrice, setDevicePrice] = useState("");
 
   async function loadStats() {
     setLoading(true);
@@ -61,22 +82,21 @@ export function MiningCalculator() {
   const result = useMemo(() => {
     if (!stats) return null;
     return calculateMiningProfit({
-      hashrateTH,
-      powerW,
-      electricityTomanPerKwh: electricity,
-      usdToman,
-      poolFeePercent: poolFee,
-      devicePriceToman: devicePrice,
-      avgFeeBtcPerBlock: avgFee,
+      hashrateTH: numericValue(hashrateTH),
+      powerW: numericValue(powerW),
+      electricityTomanPerKwh: numericValue(electricity),
+      usdToman: numericValue(usdToman),
+      poolFeePercent: numericValue(poolFee),
+      devicePriceToman: numericValue(devicePrice),
       stats
     });
-  }, [avgFee, devicePrice, electricity, hashrateTH, poolFee, powerW, stats, usdToman]);
+  }, [devicePrice, electricity, hashrateTH, poolFee, powerW, stats, usdToman]);
 
   function applyPreset(index: number) {
     const preset = presetMiners[index];
     if (!preset) return;
-    setHashrateTH(preset.hashrateTH);
-    setPowerW(preset.powerW);
+    setHashrateTH(String(preset.hashrateTH));
+    setPowerW(String(preset.powerW));
   }
 
   return (
@@ -96,7 +116,7 @@ export function MiningCalculator() {
         <div className="mt-5 grid gap-3 sm:grid-cols-2">
           <label className="grid gap-2 text-sm font-extrabold">
             مدل آماده
-            <select onChange={(event) => applyPreset(Number(event.target.value))} defaultValue="1" className="min-h-12 rounded-xl border border-silver bg-white px-3 text-graphite outline-none focus:border-gold">
+            <select onChange={(event) => applyPreset(Number(event.target.value))} defaultValue="8" className="min-h-12 rounded-xl border border-silver bg-white px-3 text-graphite outline-none focus:border-gold">
               {presetMiners.map((item, index) => <option key={item.label} value={index}>{item.label}</option>)}
             </select>
           </label>
@@ -106,11 +126,10 @@ export function MiningCalculator() {
           <NumberField label="نرخ دلار/تومان" suffix="تومان" value={usdToman} setValue={setUsdToman} />
           <NumberField label="کارمزد استخر" suffix="%" value={poolFee} setValue={setPoolFee} step={0.1} />
           <NumberField label="قیمت دستگاه" suffix="تومان" value={devicePrice} setValue={setDevicePrice} />
-          <NumberField label="میانگین fee هر بلاک" suffix="BTC" value={avgFee} setValue={setAvgFee} step={0.01} />
         </div>
 
         <p className="mt-5 rounded-2xl bg-soft p-4 text-sm leading-8 text-steel">
-          نرخ دلار/تومان و قیمت برق را خودتان وارد کنید تا عدد تومانی فیک نباشد. داده زنده شبکه و قیمت BTC از API دریافت می‌شود.
+          نرخ دلار/تومان و قیمت برق را خودتان وارد کنید تا عدد تومانی فیک نباشد. توان دستگاه‌ها مقدار مرجع است و بسته به نسخه، پاور، فریمور و شرایط کار می‌تواند تغییر کند.
         </p>
       </section>
 
@@ -147,8 +166,6 @@ export function MiningCalculator() {
                 <Info label="قیمت BTC" value={`$${nfUsd.format(stats.btcUsd)}`} />
                 <Info label="سختی شبکه" value={nfFaCompact.format(stats.currentDifficulty)} />
                 <Info label="هش‌ریت شبکه" value={`${nfFaCompact.format(stats.networkHashrate / 1e18)} EH/s`} />
-                <Info label="ارتفاع بلاک" value={nfFa.format(stats.blockHeight)} />
-                <Info label="پاداش بلاک" value={`${stats.blockSubsidy} BTC`} />
               </div>
               <p className="mt-4 text-xs leading-6 text-silver">
                 آخرین بروزرسانی: {new Date(stats.fetchedAt).toLocaleString("fa-IR")} | منابع: {stats.sources.join("، ")}
@@ -169,12 +186,12 @@ export function MiningCalculator() {
   );
 }
 
-function NumberField({ label, suffix, value, setValue, step = 1 }: { label: string; suffix: string; value: number; setValue: (value: number) => void; step?: number }) {
+function NumberField({ label, suffix, value, setValue, step = 1 }: { label: string; suffix: string; value: string; setValue: (value: string) => void; step?: number }) {
   return (
     <label className="grid gap-2 text-sm font-extrabold text-graphite">
       {label}
       <div className="flex min-h-12 overflow-hidden rounded-xl border border-silver bg-white focus-within:border-gold">
-        <input type="number" min="0" step={step} value={value} onChange={(event) => setValue(Number(event.target.value || 0))} className="min-w-0 flex-1 px-3 text-left outline-none" dir="ltr" />
+        <input type="number" min="0" step={step} value={value} onChange={(event) => setValue(event.target.value)} className="min-w-0 flex-1 px-3 text-left outline-none" dir="ltr" inputMode="decimal" />
         <span className="grid min-w-24 place-items-center border-r border-silver bg-soft px-3 text-xs text-steel">{suffix}</span>
       </div>
     </label>

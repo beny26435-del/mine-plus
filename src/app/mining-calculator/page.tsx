@@ -29,13 +29,6 @@ export default function MiningCalculatorPage() {
       <section className="py-10">
         <div className="container">
           <MiningCalculator />
-          <div className="mt-6 rounded-3xl border border-silver bg-white p-5 shadow-panel">
-            <h2 className="text-xl font-extrabold text-graphite">این محاسبه چه محدودیت‌هایی دارد؟</h2>
-            <div className="mt-3 grid gap-3 text-sm leading-8 text-steel md:grid-cols-2">
-              <p>درآمد استخراج به سختی شبکه، شانس استخر، fee تراکنش‌ها، قطعی دستگاه، دمای محیط، افت هش‌ریت و کارمزد استخر وابسته است.</p>
-              <p>عدد نهایی برای تصمیم خرید کافی نیست؛ قبل از خرید دستگاه، وضعیت فنی، مصرف برق واقعی، تهویه و شرایط نگهداری باید بررسی شود.</p>
-            </div>
-          </div>
         </div>
       </section>
     </>

@@ -21,14 +21,12 @@ export function calculateMiningProfit(input: {
   usdToman: number;
   poolFeePercent: number;
   devicePriceToman: number;
-  avgFeeBtcPerBlock: number;
   stats: MiningStats;
 }) {
   const blocksPerDay = 144;
   const hashrate = input.hashrateTH * 1e12;
-  const blockReward = input.stats.blockSubsidy + input.avgFeeBtcPerBlock;
   const poolMultiplier = Math.max(0, 1 - input.poolFeePercent / 100);
-  const btcPerDayBeforePool = (hashrate / input.stats.networkHashrate) * blocksPerDay * blockReward;
+  const btcPerDayBeforePool = (hashrate / input.stats.networkHashrate) * blocksPerDay * input.stats.blockSubsidy;
   const btcPerDay = btcPerDayBeforePool * poolMultiplier;
   const revenueUsdDay = btcPerDay * input.stats.btcUsd;
   const revenueTomanDay = revenueUsdDay * input.usdToman;
