@@ -117,7 +117,7 @@ export default async function HomePage() {
               </Link>
               <Link href="/farm-setup" className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-white/15 px-5 py-3 font-extrabold text-white sm:w-auto">
                 <HardHat size={19} />
-                مشاوره فارم
+                درخواست مشاوره
               </Link>
             </div>
           </div>

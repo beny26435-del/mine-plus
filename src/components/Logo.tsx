@@ -8,11 +8,11 @@ export function Logo({ compact = false }: { compact?: boolean }) {
       </span>
       {!compact ? (
         <span className="leading-tight">
-          <span className="block text-xl font-extrabold text-white">Mine Plus</span>
-          <span className="block text-[11px] font-bold uppercase tracking-[0.28em] text-gold">Build | Connect | Power</span>
+          <span className="block text-xl font-extrabold text-white">ماین پلاس</span>
+          <span className="block text-[11px] font-bold text-gold">فروش | تعمیر | راه‌اندازی</span>
         </span>
       ) : (
-        <span className="text-lg font-extrabold text-white">Mine<span className="text-gold"> Plus</span></span>
+        <span className="text-lg font-extrabold text-white">ماین<span className="text-gold"> پلاس</span></span>
       )}
     </div>
   );

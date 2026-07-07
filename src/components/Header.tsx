@@ -12,7 +12,7 @@ const links = [
   ["قطعات", "/parts"],
   ["ماشین حساب", "/mining-calculator"],
   ["درخواست تعمیر", "/repair-request"],
-  ["راه‌اندازی فارم", "/farm-setup"],
+  ["درخواست مشاوره", "/farm-setup"],
   ["مقالات", "/blog"],
   ["نمونه‌کارها", "/case-studies"],
   ["تماس", "/contact"]
