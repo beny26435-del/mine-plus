@@ -75,7 +75,7 @@ export async function GET() {
         currentDifficulty,
         networkHashrate,
         fetchedAt: new Date().toISOString(),
-        sources: ["CoinGecko BTC/USD", "mempool.space network hashrate and block height"]
+        sources: ["CoinGecko BTC/USD", "mempool.space network hashrate and block height", "TGJU USD/IRR when available"]
       }
     });
   } catch {

@@ -85,7 +85,7 @@ export function RepairForm() {
     setSelectedFiles(files);
     setUploadedFiles([]);
     setProgress(0);
-      setUploadMessage(files.length ? `${new Intl.NumberFormat("fa-IR").format(files.length)} فایل انتخاب شد و آماده آپلود است.` : "");
+    setUploadMessage(files.length ? `${new Intl.NumberFormat("fa-IR").format(files.length)} فایل انتخاب شد و آماده آپلود است.` : "");
     const validation = validateLeadFiles(files);
     setClientError(validation);
     if (validation || !files.length) return;
@@ -156,15 +156,18 @@ export function RepairForm() {
       <div className="md:col-span-2 rounded-xl border border-dashed border-silver bg-soft p-4">
         <label className="font-extrabold text-graphite">ارسال عکس یا ویدیو خطا</label>
         <p className="mt-1 text-sm leading-7 text-steel">اگر از صفحه وضعیت، صدای فن، هش‌ریت یا خطای دستگاه عکس یا ویدیو دارید، همین‌جا بفرستید. الزامی نیست، ولی بررسی را سریع‌تر می‌کند.</p>
-        <input
-          ref={fileRef}
-          type="file"
-          multiple
-          accept="image/jpeg,image/png,image/webp,video/mp4,video/quicktime,video/webm"
-          onChange={onFileChange}
-          disabled={busy}
-          className="mt-3 block w-full text-sm disabled:cursor-not-allowed disabled:opacity-60"
-        />
+        <label className="mt-3 inline-flex min-h-11 cursor-pointer items-center justify-center rounded-xl border border-silver bg-white px-4 py-2 text-sm font-extrabold text-graphite transition hover:border-gold hover:bg-gold/10">
+          انتخاب عکس یا ویدیو
+          <input
+            ref={fileRef}
+            type="file"
+            multiple
+            accept="image/jpeg,image/png,image/webp,video/mp4,video/quicktime,video/webm"
+            onChange={onFileChange}
+            disabled={busy}
+            className="sr-only"
+          />
+        </label>
         {selectedFiles.length ? (
           <div className="mt-3">
             <div className="flex items-center justify-between text-xs font-bold text-steel">

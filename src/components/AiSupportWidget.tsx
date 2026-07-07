@@ -125,7 +125,7 @@ export function AiSupportWidget() {
   }
 
   return (
-    <div className="fixed bottom-4 left-4 z-50 sm:bottom-5 sm:left-5">
+    <div className="fixed bottom-4 left-4 z-30 sm:bottom-5 sm:left-5">
       {open ? (
         <section className="mb-3 flex h-[min(72vh,560px)] w-[calc(100vw-32px)] max-w-[390px] flex-col overflow-hidden rounded-3xl border border-gold/20 bg-white text-graphite shadow-[0_24px_70px_rgba(11,18,32,0.28)]">
           <header className="flex items-center justify-between gap-3 bg-navy px-4 py-3 text-white">
@@ -209,10 +209,10 @@ export function AiSupportWidget() {
       <button
         type="button"
         onClick={() => setOpen((value) => !value)}
-        className="inline-flex min-h-12 items-center gap-2 rounded-2xl bg-gold px-4 py-3 font-extrabold text-graphite shadow-[0_18px_45px_rgba(242,211,53,0.28)] transition hover:-translate-y-0.5"
+        className="inline-flex min-h-12 items-center gap-2 rounded-2xl bg-gold px-4 py-3 font-extrabold text-graphite shadow-[0_18px_45px_rgba(242,211,53,0.28)] transition hover:-translate-y-0.5 max-sm:h-14 max-sm:w-14 max-sm:justify-center max-sm:rounded-full max-sm:px-0"
       >
         <Bot size={20} />
-        مشاوره سریع
+        <span className="max-sm:sr-only">مشاوره سریع</span>
       </button>
     </div>
   );

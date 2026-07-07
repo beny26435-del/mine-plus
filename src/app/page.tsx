@@ -107,15 +107,15 @@ export default async function HomePage() {
               {heroText}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link href="/products" className="inline-flex min-h-12 items-center gap-2 rounded-xl bg-gold px-5 py-3 font-extrabold text-graphite">
+              <Link href="/products" className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-gold px-5 py-3 font-extrabold text-graphite sm:w-auto">
                 <ShoppingBag size={19} />
                 ورود به فروشگاه
               </Link>
-              <Link href="/repair-request" className="inline-flex min-h-12 items-center gap-2 rounded-xl border border-gold/40 bg-white/5 px-5 py-3 font-extrabold text-gold">
+              <Link href="/repair-request" className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-gold/40 bg-white/5 px-5 py-3 font-extrabold text-gold sm:w-auto">
                 <Wrench size={19} />
                 ثبت تعمیر
               </Link>
-              <Link href="/farm-setup" className="inline-flex min-h-12 items-center gap-2 rounded-xl border border-white/15 px-5 py-3 font-extrabold text-white">
+              <Link href="/farm-setup" className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl border border-white/15 px-5 py-3 font-extrabold text-white sm:w-auto">
                 <HardHat size={19} />
                 مشاوره فارم
               </Link>
