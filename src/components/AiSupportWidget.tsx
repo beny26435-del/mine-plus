@@ -55,7 +55,7 @@ export function AiSupportWidget() {
   }, [messages, open]);
 
   const activated = Boolean(leadId);
-  const title = useMemo(() => (activated ? "پشتیبانی Mine Plus" : "مشاوره سریع"), [activated]);
+  const title = useMemo(() => (activated ? "پشتیبانی ماین پلاس" : "مشاوره سریع"), [activated]);
 
   if (!loaded || !enabled) return null;
 

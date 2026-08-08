@@ -4,8 +4,8 @@
 
 امکانات اصلی:
 
-- فروش و استعلام ماینرها در بخش جداگانه `/miners`
-- فروش و استعلام قطعات در بخش جداگانه `/parts`
+- نمایش و فروش ماینرها در بخش جداگانه `/miners`
+- نمایش و فروش قطعات در بخش جداگانه `/parts`
 - فروشگاه کلی `/products`
 - ماشین حساب ماینینگ واقعی در `/mining-calculator`
 - فرم درخواست تعمیر با امکان آپلود عکس/ویدیو روی VPS
@@ -93,6 +93,8 @@ UPLOAD_PUBLIC_BASE_URL="http://YOUR_VPS_IP:4000"
 - `/admin/farm-requests` درخواست‌های مشاوره/راه‌اندازی فارم
 - `/admin/support` لیدها و مکالمه‌های ساپورت سایت
 - `/admin/settings` تنظیمات برند، بنر، لوگو، شماره تماس و فعال/غیرفعال کردن بخش‌ها
+
+شماره تماس، لینک واتساپ، لوگو، بنر و متن‌های اصلی سایت از همین بخش خوانده می‌شوند. اگر شماره را در پنل تغییر دادید، سایت هم همان مقدار را نشان می‌دهد؛ نیازی به تغییر کد یا env برای شماره تماس نیست.
 
 ## پشتیبانی سایت بدون هزینه
 
@@ -189,13 +191,11 @@ ADMIN_EMAIL="admin@mineplus.ir"
 ADMIN_PASSWORD="یک رمز قوی"
 AUTH_SECRET="یک secret قوی"
 NEXT_PUBLIC_SITE_URL="https://your-domain.com"
-MINE_PLUS_PHONE="09201863207"
-MINE_PLUS_WHATSAPP_LINK="https://wa.me/989201863207"
-NEXT_PUBLIC_MINE_PLUS_PHONE="09201863207"
-NEXT_PUBLIC_MINE_PLUS_WHATSAPP_LINK="https://wa.me/989201863207"
 UPLOAD_API_URL="http://YOUR_VPS_IP:4000/api/upload"
 UPLOAD_API_KEY="same-as-vps"
 UPLOAD_PUBLIC_BASE_URL="http://YOUR_VPS_IP:4000"
 ```
+
+نکته تماس: شماره قابل نمایش و لینک واتساپ از پنل مدیریت ذخیره می‌شوند. در Vercel فقط `DATABASE_URL` باید به همان دیتابیسی وصل باشد که تنظیمات پنل داخل آن ذخیره شده است.
 
 اگر connection string دیتابیس یا کلید آپلود را در چت یا جای عمومی فرستادید، در Neon یا VPS مقدار جدید بسازید و در Vercel هم جایگزین کنید.

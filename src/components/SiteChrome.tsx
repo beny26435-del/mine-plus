@@ -4,8 +4,9 @@ import { usePathname } from "next/navigation";
 import { AiSupportWidget } from "@/components/AiSupportWidget";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import type { PublicContact } from "@/lib/contact";
 
-export function SiteChrome({ children }: { children: React.ReactNode }) {
+export function SiteChrome({ children, contact }: { children: React.ReactNode; contact: PublicContact }) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith("/admin");
 
@@ -13,9 +14,9 @@ export function SiteChrome({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <Header />
+      <Header contact={contact} />
       <main>{children}</main>
-      <Footer />
+      <Footer contact={contact} />
       <AiSupportWidget />
     </>
   );

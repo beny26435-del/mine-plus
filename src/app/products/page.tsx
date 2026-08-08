@@ -14,8 +14,8 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
       <div className="container">
         <div className="mb-7 text-center">
           <p className="font-extrabold text-gold">فروشگاه</p>
-          <h1 className="mt-2 text-4xl font-extrabold text-graphite">ماینر، قطعات و خدمات Mine Plus</h1>
-          <p className="mx-auto mt-4 max-w-2xl leading-8 text-steel">محصول یا خدمت موردنظرتان را ببینید. برای قیمت روز، موجودی و سازگاری با دستگاه، سریع‌ترین راه استعلام در واتساپ است.</p>
+          <h1 className="mt-2 text-4xl font-extrabold text-graphite">ماینر، قطعات و خدمات ماین پلاس</h1>
+          <p className="mx-auto mt-4 max-w-2xl leading-8 text-steel">محصول یا خدمت موردنیازتان را انتخاب کنید. برای قیمت روز، موجودی و سازگاری با دستگاه، پیام کوتاه در واتساپ کافی است.</p>
         </div>
         <div className="mb-6 flex flex-wrap justify-center gap-2">
           {[
@@ -35,7 +35,7 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
         {!products.length ? (
           <div className="rounded-2xl border border-silver bg-white p-8 text-center shadow-panel">
             <h2 className="text-2xl font-extrabold text-graphite">فعلاً محصولی در این بخش نیست</h2>
-            <p className="mt-3 leading-8 text-steel">برای استعلام ماینر، قطعه یا خدمات فنی می‌توانید مستقیم از واتساپ پیام بدهید.</p>
+            <p className="mt-3 leading-8 text-steel">برای خرید ماینر، تهیه قطعه یا خدمات فنی می‌توانید مستقیم در واتساپ پیام بدهید.</p>
           </div>
         ) : null}
       </div>

@@ -19,7 +19,7 @@ export default async function MinersPage() {
       <div className="mt-6 grid gap-3">
         {items.map((item) => (
           <div key={item.id} className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-silver bg-white p-4">
-            <div><b>{item.title}</b><p className="text-sm text-steel">{statusLabel(item.status)} | {item.priceText || "استعلامی"}</p></div>
+            <div><b>{item.title}</b><p className="text-sm text-steel">{statusLabel(item.status)} | {item.priceText || "قیمت روز با هماهنگی"}</p></div>
             <div className="flex gap-2"><Link href={`/admin/miners/${item.id}`} className="rounded-lg border border-silver px-3 py-2 text-sm font-bold">ویرایش</Link><form action={deleteProductAction}><input type="hidden" name="id" value={item.id} /><button className="rounded-lg bg-red-50 px-3 py-2 text-sm font-bold text-red-700">حذف</button></form></div>
           </div>
         ))}

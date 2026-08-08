@@ -9,7 +9,7 @@ export default async function BlogPage() {
     <section className="py-12">
       <div className="container">
         <p className="font-extrabold text-gold">راهنمای خرید و نگهداری</p>
-        <h1 className="mt-2 text-4xl font-extrabold text-graphite">مقاله‌های Mine Plus</h1>
+        <h1 className="mt-2 text-4xl font-extrabold text-graphite">مقاله‌های ماین پلاس</h1>
         <p className="mt-4 max-w-2xl leading-8 text-steel">چند مطلب کوتاه و کاربردی برای خرید ماینر، نگهداری دستگاه و تشخیص خطاهای رایج.</p>
         <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {posts.map((post) => (

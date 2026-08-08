@@ -20,6 +20,18 @@ function checked(formData: FormData, key: string) {
   return formData.get(key) === "on";
 }
 
+function whatsappFromPhone(phone: string) {
+  return `https://wa.me/98${phone.replace(/^0/, "")}`;
+}
+
+function whatsappValue(formData: FormData, phone: string) {
+  const value = text(formData, "whatsappLink");
+  if (!value || /^https:\/\/wa\.me\/(?:98)?9\d{9}$/.test(value)) {
+    return whatsappFromPhone(phone);
+  }
+  return value;
+}
+
 export async function loginAction(formData: FormData) {
   const user = await verifyAdminCredentials(text(formData, "email"), text(formData, "password"));
   if (!user) redirect("/admin/login?error=1");
@@ -34,13 +46,16 @@ export async function logoutAction() {
 
 export async function saveSettingsAction(formData: FormData) {
   await requireAdmin();
+  const normalizedPhone = normalizeIranPhone(text(formData, "phone") || "09201863207");
+  const normalizedWhatsApp = whatsappValue(formData, normalizedPhone);
+
   await prisma.siteSettings.upsert({
     where: { id: 1 },
     update: {
       brandName: text(formData, "brandName"),
       slogan: text(formData, "slogan"),
-      phone: normalizeIranPhone(text(formData, "phone")),
-      whatsappLink: text(formData, "whatsappLink"),
+      phone: normalizedPhone,
+      whatsappLink: normalizedWhatsApp,
       telegram: nullable(formData, "telegram"),
       instagram: nullable(formData, "instagram"),
       address: nullable(formData, "address"),
@@ -72,20 +87,20 @@ export async function saveSettingsAction(formData: FormData) {
       id: 1,
       brandName: text(formData, "brandName") || "Mine Plus",
       slogan: text(formData, "slogan") || "فروش، تعمیر و راه‌اندازی ماینینگ",
-      phone: normalizeIranPhone(text(formData, "phone") || "09201863207"),
-      whatsappLink: text(formData, "whatsappLink") || "https://wa.me/989201863207",
+      phone: normalizedPhone,
+      whatsappLink: normalizedWhatsApp,
       logoImage: text(formData, "logoImage") || "/images/mine-plus-logo.png",
       bannerImage: text(formData, "bannerImage") || "/images/mine-plus-banner.png",
-      heroEyebrow: text(formData, "heroEyebrow") || "Mine Plus | فروش، تعمیر و راه‌اندازی فارم",
-      heroTitle: text(formData, "heroTitle") || "فروش ماینر، قطعات و راه‌اندازی فارم",
-      heroText: text(formData, "heroText") || "برای خرید ماینر، تأمین قطعه یا تعمیر دستگاه، اول شرایط برق، مدل دستگاه و نیاز واقعی شما را بررسی می‌کنیم؛ بعد قیمت و مسیر انجام کار را شفاف می‌گوییم.",
-      storeTitle: text(formData, "storeTitle") || "ماینر و قطعه را با خیال راحت‌تر استعلام کنید",
-      storeText: text(formData, "storeText") || "مدل دستگاه، موجودی و سازگاری قطعه را قبل از خرید چک می‌کنیم تا وقت و هزینه‌تان صرف انتخاب اشتباه نشود.",
-      servicesTitle: text(formData, "servicesTitle") || "کنار فروش، کار فنی هم انجام می‌دهیم",
-      servicesText: text(formData, "servicesText") || "از انتخاب دستگاه تا تعمیر و چیدمان فارم، تمرکز ما روی تصمیم‌های عملی است؛ چیزی که با برق، فضا و بودجه شما جور دربیاید.",
+      heroEyebrow: text(formData, "heroEyebrow") || "ماین پلاس | فروش، تعمیر و راه‌اندازی فارم",
+      heroTitle: text(formData, "heroTitle") || "خرید ماینر، قطعات و خدمات فارم بدون سردرگمی",
+      heroText: text(formData, "heroText") || "اگر دنبال دستگاه، قطعه، تعمیر یا راه‌اندازی فارم هستید، اول مدل و شرایط کارتان را بررسی می‌کنیم؛ بعد موجودی، قیمت روز و مسیر درست را شفاف می‌گوییم.",
+      storeTitle: text(formData, "storeTitle") || "ماینر و قطعه را با خیال راحت‌تر انتخاب کنید",
+      storeText: text(formData, "storeText") || "قبل از خرید، سازگاری قطعه، سلامت دستگاه، مصرف برق و شرایط تحویل را چک می‌کنیم تا انتخابتان فقط بر اساس حدس و قیمت نباشد.",
+      servicesTitle: text(formData, "servicesTitle") || "فروش، تعمیر و زیرساخت در یک مسیر مشخص",
+      servicesText: text(formData, "servicesText") || "از انتخاب دستگاه تا تعمیر و آماده‌سازی فارم، تمرکز ما روی تصمیم‌های قابل اجراست؛ چیزی که با برق، فضا و بودجه شما جور دربیاید.",
       repairCtaTitle: text(formData, "repairCtaTitle") || "ماینر خطا می‌دهد یا هش‌ریت افت کرده؟",
-      repairCtaText: text(formData, "repairCtaText") || "مدل دستگاه، توضیح خطا و اگر دارید عکس یا ویدیو بفرستید تا قبل از هر هزینه‌ای مسیر بررسی مشخص شود.",
-      farmCtaTitle: text(formData, "farmCtaTitle") || "برای فارم، قبل از خرید تعداد بالا حساب‌وکتاب کنید",
+      repairCtaText: text(formData, "repairCtaText") || "مدل دستگاه، توضیح خطا و اگر دارید عکس یا ویدیو بفرستید تا قبل از هر هزینه‌ای مسیر بررسی روشن شود.",
+      farmCtaTitle: text(formData, "farmCtaTitle") || "قبل از خرید تعداد بالا، زیرساخت را حساب کنید",
       farmCtaText: text(formData, "farmCtaText") || "برق، تهویه، صدا، شبکه و محل نصب اگر از اول درست دیده نشوند، بعداً هزینه‌ساز می‌شوند.",
       contentTitle: text(formData, "contentTitle") || "راهنماها و نمونه‌کارهای کاربردی",
       contentText: text(formData, "contentText") || "چند راهنمای کوتاه و چند نمونه از کارهای انجام‌شده را اینجا می‌گذاریم تا تصمیم‌گیری ساده‌تر شود."

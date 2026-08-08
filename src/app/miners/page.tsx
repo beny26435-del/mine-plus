@@ -11,13 +11,13 @@ export default async function MinersPublicPage() {
         <div className="mb-8 text-center">
           <p className="font-extrabold text-gold">فروش ماینر</p>
           <h1 className="mt-2 text-4xl font-extrabold text-graphite">ماینر مناسب کار شما</h1>
-          <p className="mx-auto mt-4 max-w-2xl leading-8 text-steel">قبل از خرید، فقط مدل و قیمت را نمی‌بینیم؛ مصرف برق، وضعیت فنی، تهویه و شرایط تحویل هم مهم است.</p>
+          <p className="mx-auto mt-4 max-w-2xl leading-8 text-steel">قبل از خرید، فقط اسم مدل و قیمت مهم نیست؛ مصرف برق، سلامت دستگاه، تهویه و شرایط تحویل هم باید روشن باشد.</p>
         </div>
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">{miners.map((product) => <ProductCard key={product.id} product={product} />)}</div>
         {!miners.length ? (
           <div className="rounded-2xl border border-silver bg-white p-8 text-center shadow-panel">
             <h2 className="text-2xl font-extrabold text-graphite">ماینری برای نمایش ثبت نشده است</h2>
-            <p className="mt-3 leading-8 text-steel">مدل مدنظرتان را در واتساپ بفرستید تا موجودی و قیمت روز بررسی شود.</p>
+            <p className="mt-3 leading-8 text-steel">مدل مدنظرتان را در واتساپ بفرستید تا موجودی، قیمت روز و شرایط تحویل بررسی شود.</p>
           </div>
         ) : null}
       </div>

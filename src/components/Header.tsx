@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Menu, MessageCircle, PhoneCall, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Logo } from "@/components/Logo";
-import { phone, telHref, whatsappLink } from "@/lib/contact";
+import { telHref, type PublicContact } from "@/lib/contact";
 
 const links = [
   ["صفحه اصلی", "/"],
@@ -18,7 +18,7 @@ const links = [
   ["تماس", "/contact"]
 ];
 
-export function Header() {
+export function Header({ contact }: { contact: PublicContact }) {
   const [open, setOpen] = useState(false);
   const [closing, setClosing] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -67,11 +67,11 @@ export function Header() {
           ))}
         </nav>
         <div className="hidden items-center gap-3 lg:flex">
-          <a href={telHref()} className="inline-flex items-center gap-2 text-sm font-bold">
+          <a href={telHref(contact.phone)} className="inline-flex items-center gap-2 text-sm font-bold">
             <PhoneCall size={17} />
-            <bdi dir="ltr">{phone}</bdi>
+            <bdi dir="ltr">{contact.phone}</bdi>
           </a>
-          <Link href={whatsappLink} className="inline-flex min-h-10 items-center gap-2 rounded-xl bg-gold px-4 py-2 text-sm font-extrabold text-graphite">
+          <Link href={contact.whatsappLink} className="inline-flex min-h-10 items-center gap-2 rounded-xl bg-gold px-4 py-2 text-sm font-extrabold text-graphite">
             <MessageCircle size={17} />
             واتساپ
           </Link>
@@ -105,11 +105,11 @@ export function Header() {
               ))}
             </nav>
             <div className="mt-auto grid gap-3">
-              <a href={telHref()} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-white/10 px-4 py-3 font-extrabold transition duration-300 hover:border-gold/40 hover:bg-white/5">
+              <a href={telHref(contact.phone)} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-white/10 px-4 py-3 font-extrabold transition duration-300 hover:border-gold/40 hover:bg-white/5">
                 <PhoneCall size={17} />
-                <bdi dir="ltr">{phone}</bdi>
+                <bdi dir="ltr">{contact.phone}</bdi>
               </a>
-              <Link href={whatsappLink} onClick={closeMenu} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-gold px-4 py-3 font-extrabold text-graphite transition duration-300 hover:-translate-y-0.5 hover:shadow-glow">
+              <Link href={contact.whatsappLink} onClick={closeMenu} className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-gold px-4 py-3 font-extrabold text-graphite transition duration-300 hover:-translate-y-0.5 hover:shadow-glow">
                 <MessageCircle size={17} />
                 واتساپ
               </Link>

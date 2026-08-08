@@ -14,6 +14,9 @@ export function ProductCard({
     image?: string | null;
   };
 }) {
+  const priceText = product.priceText && product.priceText !== "استعلامی" ? product.priceText : "قیمت روز با هماهنگی";
+  const stockText = product.stockStatus === "available" ? "موجود" : product.stockStatus === "unavailable" ? "ناموجود" : "هماهنگی قبل از خرید";
+
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-silver/70 bg-white shadow-panel transition duration-300 hover:-translate-y-1 hover:border-gold/50 hover:shadow-glow">
       <div className="relative aspect-[4/3] overflow-hidden bg-gradient-to-br from-navy to-graphite p-4">
@@ -37,13 +40,16 @@ export function ProductCard({
       </div>
       <h3 className="text-xl font-extrabold text-graphite">{product.title}</h3>
       <p className="mt-3 line-clamp-3 text-sm leading-8 text-steel">{product.shortDescription}</p>
-      <p className="mt-4 font-extrabold text-navy">{product.priceText || "قیمت با استعلام"}</p>
+      <div className="mt-4 flex flex-wrap items-center gap-2">
+        <span className="rounded-full bg-soft px-3 py-1 text-xs font-extrabold text-steel">{stockText}</span>
+        <span className="font-extrabold text-navy">{priceText}</span>
+      </div>
       <div className="mt-auto flex flex-wrap gap-2 pt-5">
         <Link href={`/products/${product.slug}`} className="rounded-xl border border-silver px-4 py-2 text-sm font-extrabold text-graphite transition hover:border-gold/60">
           جزئیات
         </Link>
         <Link href="/contact" className="rounded-xl bg-gold px-4 py-2 text-sm font-extrabold text-graphite transition hover:bg-gold/90">
-          استعلام سریع
+          هماهنگی خرید
         </Link>
       </div>
       </div>

@@ -15,7 +15,7 @@ export default async function AdminSettingsPage({ searchParams }: { searchParams
       <div className="flex flex-col justify-between gap-3 md:flex-row md:items-end">
         <div>
           <p className="font-extrabold text-gold">مدیریت محتوای سایت</p>
-          <h1 className="mt-2 text-3xl font-extrabold">تنظیمات Mine Plus</h1>
+          <h1 className="mt-2 text-3xl font-extrabold">تنظیمات ماین پلاس</h1>
           <p className="mt-2 max-w-2xl leading-8 text-steel">متن‌های صفحه اول، مسیر لوگو و بنر، لینک‌های تماس و فعال بودن فرم‌ها از اینجا تغییر می‌کند.</p>
         </div>
         {query.saved ? <p className="rounded-xl bg-green-50 px-4 py-3 text-sm font-bold text-green-700">تنظیمات ذخیره شد.</p> : null}
@@ -26,7 +26,10 @@ export default async function AdminSettingsPage({ searchParams }: { searchParams
           <Field label="نام برند"><input name="brandName" defaultValue={settings?.brandName || "Mine Plus"} className="input" /></Field>
           <Field label="شعار کوتاه"><input name="slogan" defaultValue={settings?.slogan || ""} className="input" /></Field>
           <Field label="شماره تماس"><input name="phone" dir="ltr" defaultValue={settings?.phone || "09201863207"} className="input text-left" /></Field>
-          <Field label="لینک واتساپ"><input name="whatsappLink" dir="ltr" defaultValue={settings?.whatsappLink || "https://wa.me/989201863207"} className="input text-left" /></Field>
+          <Field label="لینک واتساپ">
+            <input name="whatsappLink" dir="ltr" defaultValue={settings?.whatsappLink || "https://wa.me/989201863207"} className="input text-left" />
+            <span className="text-xs leading-6 text-steel">اگر فقط شماره را عوض کنید، لینک واتساپ هم با همان شماره ساخته می‌شود.</span>
+          </Field>
           <Field label="تلگرام"><input name="telegram" dir="ltr" defaultValue={settings?.telegram || ""} className="input text-left" /></Field>
           <Field label="اینستاگرام"><input name="instagram" dir="ltr" defaultValue={settings?.instagram || ""} className="input text-left" /></Field>
           <Field label="آدرس" wide><input name="address" defaultValue={settings?.address || ""} className="input" /></Field>
@@ -39,7 +42,7 @@ export default async function AdminSettingsPage({ searchParams }: { searchParams
         </SettingsCard>
 
         <SettingsCard title="متن‌های صفحه اصلی" description="این متن‌ها مستقیم در صفحه اول دیده می‌شوند. کوتاه، واضح و شبیه گفت‌وگوی واقعی بنویسید.">
-          <Field label="برچسب بالای Hero"><input name="heroEyebrow" defaultValue={settings?.heroEyebrow || "Mine Plus | فروش، تعمیر و راه‌اندازی فارم"} className="input" /></Field>
+          <Field label="برچسب بالای Hero"><input name="heroEyebrow" defaultValue={settings?.heroEyebrow || "ماین پلاس | فروش، تعمیر و راه‌اندازی فارم"} className="input" /></Field>
           <Field label="عنوان اصلی Hero"><input name="heroTitle" defaultValue={settings?.heroTitle || ""} className="input" /></Field>
           <Field label="توضیح Hero" wide><textarea name="heroText" rows={4} defaultValue={settings?.heroText || ""} className="input" /></Field>
           <Field label="عنوان بخش فروشگاه"><input name="storeTitle" defaultValue={settings?.storeTitle || ""} className="input" /></Field>
