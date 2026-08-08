@@ -5,30 +5,270 @@ const prisma = new PrismaClient();
 
 const products = [
   {
-    title: "Antminer S19 Pro",
-    slug: "antminer-s19-pro",
+    title: "Whatsminer M21S",
+    slug: "whatsminer-m21s",
     category: "ماینر",
     kind: "miner",
-    shortDescription: "مدلی شناخته‌شده برای استخراج SHA-256؛ مناسب وقتی برق و تهویه قابل اتکا دارید.",
+    shortDescription: "مدل اقتصادی و شناخته‌شده واتس‌ماینر برای استعلام، خرید و بررسی سلامت قبل از تحویل.",
     description:
-      "قبل از خرید Antminer S19 Pro بهتر است هش‌ریت پایدار، سلامت هشبردها، وضعیت پاور، فن‌ها و سابقه کارکرد دستگاه بررسی شود. اگر ظرفیت برق، تهویه و محل نصب از قبل مشخص باشد، انتخاب دستگاه کم‌ریسک‌تر می‌شود.",
+      "Whatsminer M21S از مدل‌های رایج بازار است و قبل از خرید باید هش‌ریت پایدار، دمای کارکرد، سلامت پاور، وضعیت فن‌ها و لاگ خطا بررسی شود. این دستگاه برای کارکرد مطمئن به برق پایدار و تهویه مناسب نیاز دارد.",
     priceText: "استعلامی",
     stockStatus: "inquiry",
     featured: true,
-    image: "/images/products/antminer-s19-pro.jpg"
+    sortOrder: 10,
+    image: "/images/products/whatsminer-m21s.jpg"
   },
   {
-    title: "Whatsminer M30S++",
+    title: "Whatsminer M20",
+    slug: "whatsminer-m20",
+    category: "ماینر",
+    kind: "miner",
+    shortDescription: "گزینه‌ای برای خرید اقتصادی؛ مناسب وقتی قبل از خرید وضعیت هشبرد و پاور دقیق تست شود.",
+    description:
+      "در خرید Whatsminer M20 باید وضعیت کارکرد دستگاه، سلامت هشبردها، پاور، فن و شرایط نگهداری قبلی بررسی شود. برای مدل‌های کارکرده، تست زیر بار و مشاهده لاگ دستگاه قبل از تصمیم نهایی اهمیت زیادی دارد.",
+    priceText: "استعلامی",
+    stockStatus: "inquiry",
+    featured: true,
+    sortOrder: 20,
+    image: "/images/products/whatsminer-m20.jpg"
+  },
+  {
+    title: "Whatsminer M30",
+    slug: "whatsminer-m30",
+    category: "ماینر",
+    kind: "miner",
+    shortDescription: "مدل رایج برای استعلام خرید؛ قبل از خرید باید هش‌ریت، دما و وضعیت پاور بررسی شود.",
+    description:
+      "Whatsminer M30 برای استفاده در فارم یا محیط دارای زیرساخت مناسب قابل بررسی است. قبل از خرید، تست پایدار، سلامت فن‌ها، وضعیت پاور، لاگ خطا و دمای هشبردها باید کنترل شود.",
+    priceText: "استعلامی",
+    stockStatus: "inquiry",
+    featured: true,
+    sortOrder: 30,
+    image: "/images/products/whatsminer-m30.jpg"
+  },
+  {
+    title: "Whatsminer M31",
+    slug: "whatsminer-m31",
+    category: "ماینر",
+    kind: "miner",
+    shortDescription: "ماینر سری M31 برای استعلام؛ مناسب بررسی مصرف برق، تهویه و سلامت قطعات.",
+    description:
+      "Whatsminer M31 باید با توجه به مصرف برق، شرایط تهویه و سلامت قطعات داخلی انتخاب شود. در دستگاه‌های کارکرده، تست هش‌ریت پایدار و بررسی خطاهای احتمالی قبل از خرید ضروری است.",
+    priceText: "استعلامی",
+    stockStatus: "inquiry",
+    featured: true,
+    sortOrder: 40,
+    image: "/images/products/whatsminer-m31.jpg"
+  },
+  {
+    title: "Whatsminer M32",
+    slug: "whatsminer-m32",
+    category: "ماینر",
+    kind: "miner",
+    shortDescription: "مدل سری M32 برای خرید و بررسی فنی؛ مناسب کار با برق پایدار و تهویه حساب‌شده.",
+    description:
+      "قبل از خرید Whatsminer M32 بهتر است وضعیت هشبردها، پاور، فن‌ها، دمای کارکرد و لاگ خطای دستگاه بررسی شود. انتخاب این مدل بدون توجه به زیرساخت برق و تهویه می‌تواند هزینه نگهداری را بالا ببرد.",
+    priceText: "استعلامی",
+    stockStatus: "inquiry",
+    featured: false,
+    sortOrder: 50,
+    image: "/images/products/whatsminer-m32.jpg"
+  },
+  {
+    title: "Whatsminer M30+",
+    slug: "whatsminer-m30-plus",
+    category: "ماینر",
+    kind: "miner",
+    shortDescription: "نسخه پلاس سری M30 برای استعلام؛ مناسب بررسی دقیق هش‌ریت، پاور و شرایط نگهداری.",
+    description:
+      "Whatsminer M30+ باید قبل از خرید از نظر هش‌ریت واقعی، پایداری زیر بار، سلامت پاور، دمای هشبرد و شرایط سرویس بررسی شود. برای خرید چند دستگاه، ظرفیت برق و تهویه هم باید جداگانه محاسبه شود.",
+    priceText: "استعلامی",
+    stockStatus: "inquiry",
+    featured: false,
+    sortOrder: 60,
+    image: "/images/products/whatsminer-m30-plus.jpg"
+  },
+  {
+    title: "Whatsminer M30++",
     slug: "whatsminer-m30s-plus-plus",
     category: "ماینر",
     kind: "miner",
-    shortDescription: "ماینر Whatsminer برای فارم‌هایی که برق و تهویه‌شان درست حساب شده است.",
+    shortDescription: "مدل پرطرفدار سری M30 برای فارم‌هایی که برق و تهویه‌شان درست حساب شده است.",
     description:
-      "Whatsminer M30S++ برای فارم‌هایی که برق پایدار و تهویه مناسب دارند گزینه قابل بررسی است. قبل از خرید، دمای کارکرد، لاگ خطا، وضعیت فن‌ها و شرایط نگهداری دستگاه باید دیده شود.",
+      "Whatsminer M30++ برای فارم‌هایی که برق پایدار و تهویه مناسب دارند گزینه قابل بررسی است. قبل از خرید، دمای کارکرد، لاگ خطا، وضعیت فن‌ها، پاور و شرایط نگهداری دستگاه باید دیده شود.",
     priceText: "استعلامی",
     stockStatus: "inquiry",
     featured: true,
-    image: "/images/products/whatsminer-m30s-plus-plus.jpg"
+    sortOrder: 70,
+    image: "/images/products/whatsminer-m30-plus-plus.jpg"
+  },
+  {
+    title: "Whatsminer M50",
+    slug: "whatsminer-m50",
+    category: "ماینر",
+    kind: "miner",
+    shortDescription: "ماینر سری M50 برای استعلام خرید؛ مناسب بررسی راندمان، برق و تهویه قبل از خرید.",
+    description:
+      "Whatsminer M50 از سری‌های جدیدتر واتس‌ماینر است و قبل از خرید باید مدل دقیق، هش‌ریت واقعی، مصرف برق، سلامت فن‌ها، پاور و شرایط نگهداری دستگاه مشخص شود.",
+    priceText: "استعلامی",
+    stockStatus: "inquiry",
+    featured: true,
+    sortOrder: 80,
+    image: "/images/products/whatsminer-m50.jpg"
+  },
+  {
+    title: "Whatsminer M50+",
+    slug: "whatsminer-m50-plus",
+    category: "ماینر",
+    kind: "miner",
+    shortDescription: "نسخه پلاس سری M50 برای استعلام؛ مناسب بررسی فنی قبل از خرید قطعی.",
+    description:
+      "برای Whatsminer M50+ بهتر است قبل از خرید وضعیت دستگاه زیر بار، دمای کارکرد، خطاهای احتمالی، سلامت هشبرد، فن و پاور بررسی شود تا انتخاب با شرایط برق و محل نصب هماهنگ باشد.",
+    priceText: "استعلامی",
+    stockStatus: "inquiry",
+    featured: false,
+    sortOrder: 90,
+    image: "/images/products/whatsminer-m50-plus.jpg"
+  },
+  {
+    title: "Whatsminer M50++",
+    slug: "whatsminer-m50-plus-plus",
+    category: "ماینر",
+    kind: "miner",
+    shortDescription: "نسخه قوی‌تر خانواده M50 برای استعلام موجودی، سلامت دستگاه و شرایط تحویل.",
+    description:
+      "Whatsminer M50++ برای انتخاب درست نیاز به بررسی مدل دقیق، راندمان، مصرف برق، شرایط تهویه، تست هش‌ریت و وضعیت قطعات دارد. قبل از خرید تعداد بالا، حتماً زیرساخت فارم باید بررسی شود.",
+    priceText: "استعلامی",
+    stockStatus: "inquiry",
+    featured: false,
+    sortOrder: 100,
+    image: "/images/products/whatsminer-m50-plus-plus.jpg"
+  },
+  {
+    title: "Whatsminer M60",
+    slug: "whatsminer-m60",
+    category: "ماینر",
+    kind: "miner",
+    shortDescription: "ماینر نسل جدیدتر برای استعلام؛ مناسب بررسی راندمان و شرایط فارم قبل از خرید.",
+    description:
+      "Whatsminer M60 برای خرید حرفه‌ای باید همراه با بررسی برق، تهویه، دمای محیط، وضعیت فنی دستگاه و شرایط تحویل انتخاب شود. اگر قصد خرید چند دستگاه دارید، قبل از تصمیم نهایی ظرفیت فارم را هم محاسبه کنید.",
+    priceText: "استعلامی",
+    stockStatus: "inquiry",
+    featured: true,
+    sortOrder: 110,
+    image: "/images/products/whatsminer-m60.jpg"
+  },
+  {
+    title: "سیمولاتور ماینر",
+    slug: "miner-simulator",
+    category: "تجهیزات تست",
+    kind: "part",
+    shortDescription: "ابزار تست و عیب‌یابی برای بررسی بخش‌های مختلف ماینر بدون حدس‌زدن مشکل.",
+    description:
+      "سیمولاتور ماینر برای تست و عیب‌یابی دقیق‌تر استفاده می‌شود و کمک می‌کند قبل از تعویض قطعه، مسیر خطا بهتر مشخص شود. مدل مناسب باید با دستگاه و نوع تست موردنیاز هماهنگ باشد.",
+    priceText: "استعلامی",
+    stockStatus: "inquiry",
+    featured: false,
+    sortOrder: 210,
+    image: "/images/products/miner-simulator.jpg"
+  },
+  {
+    title: "رایزر ماینر",
+    slug: "miner-riser",
+    category: "قطعات",
+    kind: "part",
+    shortDescription: "رایزر و برد واسط برای مدل‌های سازگار؛ مناسب جایگزینی قطعه آسیب‌دیده یا ناپایدار.",
+    description:
+      "رایزر ماینر باید با مدل دستگاه و بردهای داخلی سازگار باشد. قبل از خرید، مدل دقیق دستگاه، نسخه برد و علائم خرابی باید بررسی شود تا قطعه اشتباه تهیه نشود.",
+    priceText: "استعلامی",
+    stockStatus: "inquiry",
+    featured: false,
+    sortOrder: 220,
+    image: "/images/products/miner-riser.jpg"
+  },
+  {
+    title: "فن ۱۴ سانتی ماینر",
+    slug: "miner-fan",
+    category: "فن و خنک‌کاری",
+    kind: "part",
+    shortDescription: "فن ۱۴ سانتی برای تهویه و کنترل دمای دستگاه؛ مناسب بررسی خطای فن و صدای غیرعادی.",
+    description:
+      "فن ۱۴ سانتی ماینر برای کنترل دمای دستگاه اهمیت زیادی دارد. قبل از خرید باید ابعاد، کانکتور، ولتاژ، دور فن و سازگاری با مدل دستگاه بررسی شود.",
+    priceText: "استعلامی",
+    stockStatus: "inquiry",
+    featured: true,
+    sortOrder: 230,
+    image: "/images/products/miner-fan-14.jpg"
+  },
+  {
+    title: "فن ۱۲ سانتی ماینر",
+    slug: "miner-fan-12",
+    category: "فن و خنک‌کاری",
+    kind: "part",
+    shortDescription: "فن ۱۲ سانتی برای دستگاه‌ها و پاورهای سازگار؛ مناسب رفع خطای فن یا افت تهویه.",
+    description:
+      "فن ۱۲ سانتی باید بر اساس مدل دستگاه، نوع سوکت، دور فن و شرایط تهویه انتخاب شود. صدای غیرعادی، دور نامناسب یا خطای fan می‌تواند نشانه نیاز به بررسی یا تعویض فن باشد.",
+    priceText: "استعلامی",
+    stockStatus: "inquiry",
+    featured: false,
+    sortOrder: 240,
+    image: "/images/products/miner-fan-12.jpg"
+  },
+  {
+    title: "کنترل‌برد Whatsminer CB2",
+    slug: "whatsminer-cb2-control-board",
+    category: "کنترل‌برد",
+    kind: "part",
+    shortDescription: "کنترل‌برد CB2 برای مدل‌های سازگار واتس‌ماینر؛ مناسب مشکلات بوت، شبکه یا ارتباط هشبرد.",
+    description:
+      "کنترل‌برد CB2 باید دقیقاً با مدل دستگاه و نسخه سخت‌افزاری سازگار باشد. قبل از تعویض، firmware، کابل دیتا، شبکه و وضعیت هشبردها باید بررسی شود.",
+    priceText: "استعلامی",
+    stockStatus: "inquiry",
+    featured: false,
+    sortOrder: 250,
+    image: "/images/products/whatsminer-cb2.jpg"
+  },
+  {
+    title: "کنترل‌برد Whatsminer CB4",
+    slug: "whatsminer-cb4-control-board",
+    category: "کنترل‌برد",
+    kind: "part",
+    shortDescription: "کنترل‌برد CB4 برای مدل‌های سازگار؛ مناسب بررسی خطاهای بوت، firmware و شبکه.",
+    description:
+      "برای خرید کنترل‌برد CB4 باید مدل دقیق واتس‌ماینر، نسخه برد، وضعیت firmware و علائم خرابی مشخص باشد. خیلی وقت‌ها مشکل با تنظیم یا عیب‌یابی درست حل می‌شود و نیازی به تعویض فوری نیست.",
+    priceText: "استعلامی",
+    stockStatus: "inquiry",
+    featured: false,
+    sortOrder: 260,
+    image: "/images/products/whatsminer-cb4.jpg"
+  },
+  {
+    title: "کنترل‌برد Whatsminer CB6",
+    slug: "whatsminer-cb6-control-board",
+    category: "کنترل‌برد",
+    kind: "part",
+    shortDescription: "کنترل‌برد CB6 برای سری‌های سازگار واتس‌ماینر؛ مناسب مشکلات پنل، شبکه و ارتباط هشبرد.",
+    description:
+      "کنترل‌برد CB6 باید بر اساس مدل دستگاه و نسخه سخت‌افزار انتخاب شود. اگر دستگاه بوت نمی‌شود، شبکه ندارد یا هشبردها درست شناسایی نمی‌شوند، قبل از خرید برد جدید عیب‌یابی کامل پیشنهاد می‌شود.",
+    priceText: "استعلامی",
+    stockStatus: "inquiry",
+    featured: false,
+    sortOrder: 270,
+    image: "/images/products/whatsminer-cb6.jpg"
+  },
+  {
+    title: "روتر برای مخفی ماندن IP ماینر",
+    slug: "miner-vpn-router",
+    category: "شبکه و امنیت",
+    kind: "part",
+    shortDescription: "روتر مناسب مدیریت شبکه ماینر، اتصال پایدار و کاهش نمایش مستقیم IP دستگاه‌ها.",
+    description:
+      "روتر شبکه ماینینگ برای مدیریت اتصال دستگاه‌ها، پایداری اینترنت و کاهش نمایش مستقیم IP ماینر استفاده می‌شود. انتخاب روتر باید بر اساس تعداد دستگاه، نوع اتصال، پایداری اینترنت و نیاز شبکه انجام شود.",
+    priceText: "استعلامی",
+    stockStatus: "inquiry",
+    featured: true,
+    sortOrder: 280,
+    image: "/images/products/miner-vpn-router.jpg"
   },
   {
     title: "پاور ماینر",
@@ -40,21 +280,9 @@ const products = [
       "پاور باید با مدل دستگاه، توان مصرفی، کابل‌ها و وضعیت برق سازگار باشد. اگر دستگاه روشن نمی‌شود یا زیر بار قطع می‌کند، قبل از خرید پاور بهتر است کابل، افت ولتاژ و وضعیت هشبرد هم بررسی شود.",
     priceText: "استعلامی",
     stockStatus: "inquiry",
-    featured: true,
+    featured: false,
+    sortOrder: 290,
     image: "/images/products/miner-power-supply.jpg"
-  },
-  {
-    title: "فن ماینر",
-    slug: "miner-fan",
-    category: "قطعات",
-    kind: "part",
-    shortDescription: "فن مناسب برای خطای fan، صدای غیرعادی، دمای بالا یا افت تهویه دستگاه.",
-    description:
-      "فن سالم برای کنترل دمای ماینر ضروری است. خطای فن، صدای غیرعادی یا دور نامناسب می‌تواند باعث افت هش‌ریت، داغ شدن یا توقف دستگاه شود.",
-    priceText: "استعلامی",
-    stockStatus: "inquiry",
-    featured: true,
-    image: "/images/products/miner-fan.jpg"
   },
   {
     title: "کنترل برد ماینر",
@@ -67,6 +295,7 @@ const products = [
     priceText: "استعلامی",
     stockStatus: "inquiry",
     featured: false,
+    sortOrder: 300,
     image: "/images/products/miner-control-board.jpg"
   },
   {
@@ -79,7 +308,8 @@ const products = [
       "راه‌اندازی فارم فقط خرید چند دستگاه نیست. ظرفیت برق، تهویه، ایمنی، چیدمان، کابل‌کشی و نگهداری باید قبل از شروع کار مشخص شود تا بعداً هزینه‌های ناگهانی ایجاد نشود.",
     priceText: "برآورد بعد از بررسی",
     stockStatus: "inquiry",
-    featured: true,
+    featured: false,
+    sortOrder: 400,
     image: "/images/products/mining-farm-setup.jpg"
   }
 ];
@@ -218,8 +448,8 @@ async function main() {
     where: { id: 1 },
     update: {
       slogan: "فروش، تعمیر و راه‌اندازی ماینینگ",
-      phone: "09127023327",
-      whatsappLink: "https://wa.me/989127023327",
+      phone: "09201863207",
+      whatsappLink: "https://wa.me/989201863207",
       logoImage: "/images/mine-plus-logo.png",
       bannerImage: "/images/mine-plus-banner.png",
       heroEyebrow: "Mine Plus | فروش، تعمیر و راه‌اندازی فارم",
@@ -241,8 +471,8 @@ async function main() {
       id: 1,
       brandName: "Mine Plus",
       slogan: "فروش، تعمیر و راه‌اندازی ماینینگ",
-      phone: "09127023327",
-      whatsappLink: "https://wa.me/989127023327",
+      phone: "09201863207",
+      whatsappLink: "https://wa.me/989201863207",
       telegram: "https://t.me/minefix_ir",
       instagram: "https://instagram.com/minefix.ir",
       logoImage: "/images/mine-plus-logo.png",

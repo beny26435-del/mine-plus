@@ -1,0 +1,2 @@
+ALTER TABLE "SiteSettings" ALTER COLUMN "phone" SET DEFAULT '09201863207';
+ALTER TABLE "SiteSettings" ALTER COLUMN "whatsappLink" SET DEFAULT 'https://wa.me/989201863207';

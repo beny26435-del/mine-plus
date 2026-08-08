@@ -25,8 +25,8 @@ export default async function AdminSettingsPage({ searchParams }: { searchParams
         <SettingsCard title="هویت برند و تماس" description="اطلاعاتی که کاربر در هدر، فوتر و صفحه تماس می‌بیند.">
           <Field label="نام برند"><input name="brandName" defaultValue={settings?.brandName || "Mine Plus"} className="input" /></Field>
           <Field label="شعار کوتاه"><input name="slogan" defaultValue={settings?.slogan || ""} className="input" /></Field>
-          <Field label="شماره تماس"><input name="phone" dir="ltr" defaultValue={settings?.phone || "09127023327"} className="input text-left" /></Field>
-          <Field label="لینک واتساپ"><input name="whatsappLink" dir="ltr" defaultValue={settings?.whatsappLink || "https://wa.me/989127023327"} className="input text-left" /></Field>
+          <Field label="شماره تماس"><input name="phone" dir="ltr" defaultValue={settings?.phone || "09201863207"} className="input text-left" /></Field>
+          <Field label="لینک واتساپ"><input name="whatsappLink" dir="ltr" defaultValue={settings?.whatsappLink || "https://wa.me/989201863207"} className="input text-left" /></Field>
           <Field label="تلگرام"><input name="telegram" dir="ltr" defaultValue={settings?.telegram || ""} className="input text-left" /></Field>
           <Field label="اینستاگرام"><input name="instagram" dir="ltr" defaultValue={settings?.instagram || ""} className="input text-left" /></Field>
           <Field label="آدرس" wide><input name="address" defaultValue={settings?.address || ""} className="input" /></Field>

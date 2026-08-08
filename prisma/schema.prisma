@@ -82,8 +82,8 @@ model SiteSettings {
   id                     Int      @id @default(1)
   brandName              String   @default("Mine Plus")
   slogan                 String   @default("فروش، تعمیر و راه‌اندازی ماینینگ")
-  phone                  String   @default("09127023327")
-  whatsappLink           String   @default("https://wa.me/989127023327")
+  phone                  String   @default("09201863207")
+  whatsappLink           String   @default("https://wa.me/989201863207")
   telegram               String?
   instagram              String?
   address                String?
