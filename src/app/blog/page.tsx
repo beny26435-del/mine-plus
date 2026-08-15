@@ -1,12 +1,31 @@
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";
+import { absoluteUrl, jsonLd, pageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
+export const metadata = pageMetadata({
+  title: "مقالات ماین پلاس | راهنمای خرید، تعمیر و نگهداری ماینر",
+  description: "راهنماهای کاربردی برای خرید ماینر، انتخاب قطعات، نگهداری دستگاه، کنترل دما، پاور و خطاهای رایج ماینر.",
+  path: "/blog"
+});
 
 export default async function BlogPage() {
   const posts = await prisma.blogPost.findMany({ where: { status: "published" }, orderBy: { publishedAt: "desc" } });
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "مقاله‌های ماین پلاس",
+    itemListElement: posts.map((post, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      url: absoluteUrl(`/blog/${post.slug}`),
+      name: post.title
+    }))
+  };
+
   return (
     <section className="py-12">
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(itemListSchema)} />
       <div className="container">
         <p className="font-extrabold text-gold">راهنمای خرید و نگهداری</p>
         <h1 className="mt-2 text-4xl font-extrabold text-graphite">مقاله‌های ماین پلاس</h1>

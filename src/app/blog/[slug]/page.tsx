@@ -1,5 +1,7 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { absoluteUrl, jsonLd, pageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
@@ -22,12 +24,52 @@ function renderArticleContent(content: string) {
     });
 }
 
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const post = await prisma.blogPost.findUnique({ where: { slug } });
+  if (!post || post.status !== "published") {
+    return pageMetadata({
+      title: "مقاله پیدا نشد | ماین پلاس",
+      description: "مقاله موردنظر در ماین پلاس پیدا نشد.",
+      path: `/blog/${slug}`
+    });
+  }
+
+  return pageMetadata({
+    title: post.metaTitle || `${post.title} | ماین پلاس`,
+    description: post.metaDescription || post.excerpt,
+    path: `/blog/${post.slug}`,
+    image: post.coverImage
+  });
+}
+
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const post = await prisma.blogPost.findUnique({ where: { slug } });
   if (!post || post.status !== "published") notFound();
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.metaDescription || post.excerpt,
+    image: post.coverImage ? [absoluteUrl(post.coverImage)] : [absoluteUrl("/images/mine-plus-banner.png")],
+    datePublished: (post.publishedAt || post.createdAt).toISOString(),
+    dateModified: post.updatedAt.toISOString(),
+    author: { "@type": "Organization", name: "Mine Plus" },
+    publisher: {
+      "@type": "Organization",
+      name: "Mine Plus",
+      logo: {
+        "@type": "ImageObject",
+        url: absoluteUrl("/images/mine-plus-logo.png")
+      }
+    },
+    mainEntityOfPage: absoluteUrl(`/blog/${post.slug}`)
+  };
+
   return (
     <article className="py-12">
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(articleSchema)} />
       <div className="container max-w-4xl rounded-2xl border border-silver bg-white p-5 shadow-panel md:p-8">
         {post.coverImage ? (
           <div className="mb-7 aspect-[16/9] overflow-hidden rounded-2xl bg-navy">

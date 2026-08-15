@@ -4,6 +4,8 @@ import { ArrowLeft, Calculator, CheckCircle2, Cpu, FileText, HardHat, MessagesSq
 import type { LucideIcon } from "lucide-react";
 import { ProductCard } from "@/components/ProductCard";
 import { prisma } from "@/lib/prisma";
+import { absoluteUrl, jsonLd } from "@/lib/seo";
+import { getPublicContact } from "@/lib/site-contact";
 
 export const dynamic = "force-dynamic";
 
@@ -62,7 +64,7 @@ function copy(value: string | null | undefined, fallback: string) {
 }
 
 export default async function HomePage() {
-  const [settings, products, posts, cases] = await Promise.all([
+  const [settings, products, posts, cases, contact] = await Promise.all([
     prisma.siteSettings.findUnique({ where: { id: 1 } }),
     prisma.product.findMany({
       where: { status: "published", featured: true },
@@ -70,7 +72,8 @@ export default async function HomePage() {
       take: 6
     }),
     prisma.blogPost.findMany({ where: { status: "published" }, orderBy: { publishedAt: "desc" }, take: 3 }),
-    prisma.caseStudy.findMany({ where: { status: "published" }, orderBy: { updatedAt: "desc" }, take: 2 })
+    prisma.caseStudy.findMany({ where: { status: "published" }, orderBy: { updatedAt: "desc" }, take: 2 }),
+    getPublicContact()
   ]);
 
   const departments: Array<{ title: string; text: string; href: string; Icon: LucideIcon }> = [
@@ -102,9 +105,25 @@ export default async function HomePage() {
   const farmCtaText = copy(settings?.farmCtaText, homepageCopy.farmCtaText);
   const contentTitle = copy(settings?.contentTitle, homepageCopy.contentTitle);
   const contentText = copy(settings?.contentText, homepageCopy.contentText);
+  const businessSchema = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: settings?.brandName || "Mine Plus",
+    alternateName: "ماین پلاس",
+    description: settings?.defaultMetaDescription || "فروش ماینر، قطعات، تعمیرات تخصصی و مشاوره راه‌اندازی فارم.",
+    url: absoluteUrl("/"),
+    logo: absoluteUrl(settings?.logoImage || "/images/mine-plus-logo.png"),
+    image: absoluteUrl(settings?.bannerImage || "/images/mine-plus-banner.png"),
+    telephone: contact.phone,
+    sameAs: [settings?.instagram, settings?.telegram].filter(Boolean),
+    address: settings?.address ? { "@type": "PostalAddress", streetAddress: settings.address, addressCountry: "IR" } : undefined,
+    openingHours: settings?.workingHours || undefined,
+    areaServed: "IR"
+  };
 
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(businessSchema)} />
       <section className="tech-bg relative overflow-hidden py-10 text-white">
         <div className="absolute inset-0 grid-dots opacity-50" />
         <div className="container relative grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">

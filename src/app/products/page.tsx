@@ -1,7 +1,13 @@
 import { ProductCard } from "@/components/ProductCard";
 import { prisma } from "@/lib/prisma";
+import { absoluteUrl, jsonLd, pageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
+export const metadata = pageMetadata({
+  title: "فروشگاه ماین پلاس | خرید ماینر، قطعات و خدمات ماینینگ",
+  description: "مشاهده ماینرها، قطعات مصرفی و خدمات فنی ماین پلاس برای خرید، تعمیر و راه‌اندازی فارم با هماهنگی قیمت روز.",
+  path: "/products"
+});
 
 export default async function ProductsPage({ searchParams }: { searchParams: Promise<{ kind?: string }> }) {
   const query = await searchParams;
@@ -9,8 +15,21 @@ export default async function ProductsPage({ searchParams }: { searchParams: Pro
     where: { status: "published", kind: query.kind || undefined },
     orderBy: [{ sortOrder: "asc" }, { updatedAt: "desc" }]
   });
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "محصولات ماین پلاس",
+    itemListElement: products.map((product, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      url: absoluteUrl(`/products/${product.slug}`),
+      name: product.title
+    }))
+  };
+
   return (
     <section className="py-12">
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(itemListSchema)} />
       <div className="container">
         <div className="mb-7 text-center">
           <p className="font-extrabold text-gold">فروشگاه</p>

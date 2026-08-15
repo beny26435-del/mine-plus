@@ -1,7 +1,14 @@
 import Link from "next/link";
 import { MessageCircle, PhoneCall } from "lucide-react";
 import { telHref } from "@/lib/contact";
+import { pageMetadata } from "@/lib/seo";
 import { getPublicContact } from "@/lib/site-contact";
+
+export const metadata = pageMetadata({
+  title: "تماس با ماین پلاس | خرید، قطعات، تعمیر و مشاوره فارم",
+  description: "برای خرید ماینر، تهیه قطعه، ثبت تعمیر یا مشاوره راه‌اندازی فارم با ماین پلاس تماس بگیرید.",
+  path: "/contact"
+});
 
 export default async function ContactPage() {
   const contact = await getPublicContact();

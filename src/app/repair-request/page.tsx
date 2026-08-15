@@ -1,8 +1,14 @@
 import { RepairForm } from "@/components/LeadForms";
 import { prisma } from "@/lib/prisma";
+import { pageMetadata } from "@/lib/seo";
 import { getPublicContact } from "@/lib/site-contact";
 
 export const dynamic = "force-dynamic";
+export const metadata = pageMetadata({
+  title: "ثبت درخواست تعمیر ماینر | ارسال عکس و ویدیو خطا",
+  description: "ثبت درخواست تعمیر ماینر، پاور، فن، هشبرد و کنترل برد با امکان ارسال عکس یا ویدیو خطای دستگاه.",
+  path: "/repair-request"
+});
 
 export default async function RepairRequestPage() {
   const [settings, contact] = await Promise.all([

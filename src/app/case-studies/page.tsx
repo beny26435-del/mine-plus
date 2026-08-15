@@ -1,6 +1,12 @@
 import { prisma } from "@/lib/prisma";
+import { pageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
+export const metadata = pageMetadata({
+  title: "نمونه‌کارهای تعمیرات ماینر | ماین پلاس",
+  description: "نمونه‌هایی از روند عیب‌یابی، تعمیر و نتیجه بررسی دستگاه‌های ماینر در ماین پلاس.",
+  path: "/case-studies"
+});
 
 export default async function CaseStudiesPage() {
   const cases = await prisma.caseStudy.findMany({ where: { status: "published" }, orderBy: { updatedAt: "desc" } });

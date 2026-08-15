@@ -1,12 +1,31 @@
 import { ProductCard } from "@/components/ProductCard";
 import { prisma } from "@/lib/prisma";
+import { absoluteUrl, jsonLd, pageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
+export const metadata = pageMetadata({
+  title: "خرید ماینر | مدل‌های Whatsminer و دستگاه‌های مناسب فارم",
+  description: "مشاهده مدل‌های ماینر، بررسی مصرف برق، سلامت دستگاه، شرایط تحویل و هماهنگی قیمت روز قبل از خرید.",
+  path: "/miners"
+});
 
 export default async function MinersPublicPage() {
   const miners = await prisma.product.findMany({ where: { kind: "miner", status: "published" }, orderBy: [{ sortOrder: "asc" }, { updatedAt: "desc" }] });
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "ماینرهای ماین پلاس",
+    itemListElement: miners.map((product, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      url: absoluteUrl(`/products/${product.slug}`),
+      name: product.title
+    }))
+  };
+
   return (
     <section className="py-12">
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(itemListSchema)} />
       <div className="container">
         <div className="mb-8 text-center">
           <p className="font-extrabold text-gold">فروش ماینر</p>

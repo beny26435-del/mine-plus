@@ -1,8 +1,14 @@
 import { FarmForm } from "@/components/LeadForms";
 import { prisma } from "@/lib/prisma";
+import { pageMetadata } from "@/lib/seo";
 import { getPublicContact } from "@/lib/site-contact";
 
 export const dynamic = "force-dynamic";
+export const metadata = pageMetadata({
+  title: "درخواست مشاوره فارم | خرید ماینر و راه‌اندازی فارم",
+  description: "فرم کوتاه مشاوره برای خرید ماینر، انتخاب تجهیزات، بررسی برق، تهویه، شبکه و آماده‌سازی فارم.",
+  path: "/farm-setup"
+});
 
 export default async function FarmSetupPage() {
   const [settings, contact] = await Promise.all([

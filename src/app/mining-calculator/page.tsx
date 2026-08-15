@@ -1,12 +1,14 @@
 import Link from "next/link";
 import { MiningCalculator } from "@/components/MiningCalculator";
+import { pageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
 
-export const metadata = {
-  title: "ماشین حساب ماینینگ | Mine Plus",
-  description: "برآورد درآمد ماینر با قیمت زنده بیت‌کوین، نرخ دلار، سختی شبکه، هش‌ریت دستگاه و هزینه برق."
-};
+export const metadata = pageMetadata({
+  title: "ماشین حساب ماینینگ | محاسبه درآمد ماینر",
+  description: "محاسبه تقریبی درآمد ماینر با قیمت بیت‌کوین، نرخ دلار، سختی شبکه، مصرف برق و هزینه برق.",
+  path: "/mining-calculator"
+});
 
 export default function MiningCalculatorPage() {
   return (

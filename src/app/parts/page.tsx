@@ -1,12 +1,31 @@
 import { ProductCard } from "@/components/ProductCard";
 import { prisma } from "@/lib/prisma";
+import { absoluteUrl, jsonLd, pageMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
+export const metadata = pageMetadata({
+  title: "قطعات ماینر | فن، پاور، کنترل برد، رایزر و تجهیزات",
+  description: "تهیه قطعات ماینر شامل فن، پاور، کنترل برد، سیمولاتور، رایزر و تجهیزات جانبی با بررسی سازگاری دستگاه.",
+  path: "/parts"
+});
 
 export default async function PartsPublicPage() {
   const parts = await prisma.product.findMany({ where: { kind: "part", status: "published" }, orderBy: [{ sortOrder: "asc" }, { updatedAt: "desc" }] });
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "قطعات ماینر ماین پلاس",
+    itemListElement: parts.map((product, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      url: absoluteUrl(`/products/${product.slug}`),
+      name: product.title
+    }))
+  };
+
   return (
     <section className="py-12">
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(itemListSchema)} />
       <div className="container">
         <div className="mb-8 text-center">
           <p className="font-extrabold text-gold">قطعات ماینر</p>

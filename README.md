@@ -199,3 +199,27 @@ UPLOAD_PUBLIC_BASE_URL="http://YOUR_VPS_IP:4000"
 نکته تماس: شماره قابل نمایش و لینک واتساپ از پنل مدیریت ذخیره می‌شوند. در Vercel فقط `DATABASE_URL` باید به همان دیتابیسی وصل باشد که تنظیمات پنل داخل آن ذخیره شده است.
 
 اگر connection string دیتابیس یا کلید آپلود را در چت یا جای عمومی فرستادید، در Neon یا VPS مقدار جدید بسازید و در Vercel هم جایگزین کنید.
+
+## SEO و تغییر دامنه
+
+سایت برای SEO پایه آماده شده است:
+
+- `robots.txt` در مسیر `/robots.txt`
+- sitemap داینامیک در مسیر `/sitemap.xml`
+- canonical داینامیک بر اساس `NEXT_PUBLIC_SITE_URL`
+- metadata اختصاصی برای صفحه اصلی، فروشگاه، ماینرها، قطعات، مقاله‌ها، محصول، تماس، تعمیر و مشاوره فارم
+- OpenGraph و Twitter card برای نمایش بهتر لینک‌ها
+- JSON-LD برای صفحه اصلی، محصول‌ها، مقاله‌ها و لیست‌های محصول/مقاله
+
+قبل از تغییر دامنه، تولید محتوا، متن صفحات، محصول‌ها و schema قابل انجام است. بعد از تغییر دامنه این مقدار را در Vercel عوض کنید:
+
+```env
+NEXT_PUBLIC_SITE_URL="https://your-new-domain.com"
+```
+
+بعد از deploy دامنه جدید، این آدرس‌ها را باز کنید و در Google Search Console ثبت کنید:
+
+```text
+https://your-new-domain.com/sitemap.xml
+https://your-new-domain.com/robots.txt
+```

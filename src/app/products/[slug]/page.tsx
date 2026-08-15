@@ -1,9 +1,30 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { absoluteUrl, cleanText, jsonLd, limitText, pageMetadata } from "@/lib/seo";
 import { getPublicContact } from "@/lib/site-contact";
 
 export const dynamic = "force-dynamic";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const product = await prisma.product.findUnique({ where: { slug } });
+  if (!product || product.status !== "published") {
+    return pageMetadata({
+      title: "محصول پیدا نشد | ماین پلاس",
+      description: "صفحه محصول موردنظر در ماین پلاس پیدا نشد.",
+      path: `/products/${slug}`
+    });
+  }
+
+  return pageMetadata({
+    title: product.metaTitle || `${product.title} | خرید و هماهنگی قیمت روز در ماین پلاس`,
+    description: product.metaDescription || product.shortDescription || product.description,
+    path: `/products/${product.slug}`,
+    image: product.image
+  });
+}
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -12,8 +33,28 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     getPublicContact()
   ]);
   if (!product || product.status !== "published") notFound();
+  const description = cleanText(product.metaDescription || product.shortDescription || product.description);
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.title,
+    description: limitText(description, 500),
+    image: product.image ? [absoluteUrl(product.image)] : undefined,
+    category: product.category,
+    brand: { "@type": "Brand", name: "Mine Plus" },
+    url: absoluteUrl(`/products/${product.slug}`),
+    offers: {
+      "@type": "Offer",
+      availability: product.stockStatus === "unavailable" ? "https://schema.org/OutOfStock" : "https://schema.org/InStock",
+      priceCurrency: "IRR",
+      price: product.priceText && /\d/.test(product.priceText) ? product.priceText.replace(/[^\d]/g, "") : undefined,
+      url: absoluteUrl(`/products/${product.slug}`)
+    }
+  };
+
   return (
     <article className="py-12">
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(productSchema)} />
       <div className="container grid gap-8 lg:grid-cols-[1fr_340px]">
         <div className="rounded-2xl border border-silver bg-white p-6 shadow-panel">
           <div className="mb-6 grid aspect-[4/3] max-h-[420px] place-items-center overflow-hidden rounded-2xl bg-gradient-to-br from-navy to-graphite p-4">
