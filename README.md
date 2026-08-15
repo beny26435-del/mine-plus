@@ -158,6 +158,8 @@ DATABASE_URL="postgresql://..." npm run prisma:deploy
 DATABASE_URL="postgresql://..." ADMIN_EMAIL="admin@mineplus.ir" ADMIN_PASSWORD="رمز قوی" npm run db:seed
 ```
 
+Seed برای تولید محتوای اولیه و مقاله‌های جدید idempotent است: اگر تنظیمات سایت، محصولات یا مقاله‌ها قبلاً از پنل ویرایش شده باشند، اجرای دوباره seed آن‌ها را بازنویسی نمی‌کند و فقط رکوردهای جدید را می‌سازد.
+
 ## دستورات
 
 ```bash
