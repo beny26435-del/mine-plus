@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { BlogCover } from "@/components/BlogCover";
 import { prisma } from "@/lib/prisma";
 import { absoluteUrl, breadcrumbSchema, faqSchema, jsonLd, pageMetadata } from "@/lib/seo";
 
@@ -116,7 +117,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </nav>
         {post.coverImage ? (
           <div className="mb-7 aspect-[16/9] overflow-hidden rounded-2xl bg-navy">
-            <img src={post.coverImage} alt={post.title} className="h-full w-full object-cover" />
+            <BlogCover src={post.coverImage} title={post.title} priority />
           </div>
         ) : null}
         <p className="font-extrabold text-gold">{post.category || "مقاله"}</p>

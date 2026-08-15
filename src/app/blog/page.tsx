@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BlogCover } from "@/components/BlogCover";
 import { prisma } from "@/lib/prisma";
 import { absoluteUrl, breadcrumbSchema, faqSchema, jsonLd, pageMetadata } from "@/lib/seo";
 
@@ -51,7 +52,9 @@ export default async function BlogPage() {
           {posts.map((post) => (
             <Link key={post.id} href={`/blog/${post.slug}`} className="group flex h-full flex-col overflow-hidden rounded-2xl border border-silver bg-white shadow-panel transition duration-300 hover:-translate-y-1 hover:border-gold/50 hover:shadow-glow">
               <div className="aspect-[16/9] overflow-hidden bg-navy">
-                {post.coverImage ? <img src={post.coverImage} alt={post.title} className="h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]" /> : null}
+                <div className="h-full w-full transition duration-500 group-hover:scale-[1.03]">
+                  <BlogCover src={post.coverImage} title={post.title} />
+                </div>
               </div>
               <div className="p-5">
                 <p className="text-sm font-bold text-gold">{post.category || "راهنما"}</p>

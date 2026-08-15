@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { getProductSeoCopy } from "@/lib/product-seo-copy";
 import { absoluteUrl, breadcrumbSchema, cleanText, faqSchema, jsonLd, limitText, pageMetadata } from "@/lib/seo";
 import { getPublicContact } from "@/lib/site-contact";
 
@@ -34,6 +35,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     getPublicContact()
   ]);
   if (!product || product.status !== "published") notFound();
+  const seoCopy = getProductSeoCopy(product.slug, product.kind);
   const description = cleanText(product.metaDescription || product.shortDescription || product.description);
   const sectionPath = product.kind === "miner" ? "/miners" : product.kind === "part" ? "/parts" : "/products";
   const sectionName = product.kind === "miner" ? "ماینرها" : product.kind === "part" ? "قطعات ماینر" : "فروشگاه";
@@ -108,6 +110,27 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           </div>
           <section className="mt-8 rounded-2xl border border-silver bg-soft p-5">
             <h2 className="text-2xl font-extrabold text-graphite">قبل از خرید این مورد را چک کنید</h2>
+            <div className="mt-4 grid gap-3 md:grid-cols-3">
+              {seoCopy.buyingPoints.map((item) => (
+                <div key={item} className="rounded-xl bg-white p-4">
+                  <p className="text-sm font-bold leading-7 text-graphite">{item}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+          <section className="mt-6 rounded-2xl border border-silver bg-white p-5">
+            <h2 className="text-2xl font-extrabold text-graphite">نکات فنی و نگهداری</h2>
+            <div className="mt-4 grid gap-3 md:grid-cols-3">
+              {seoCopy.technicalNotes.map((item) => (
+                <div key={item} className="rounded-xl bg-soft p-4">
+                  <p className="text-sm leading-7 text-steel">{item}</p>
+                </div>
+              ))}
+            </div>
+            <p className="mt-5 rounded-xl border border-gold/30 bg-gold/10 p-4 text-sm font-bold leading-7 text-graphite">{seoCopy.serviceHint}</p>
+          </section>
+          <section className="mt-6 rounded-2xl border border-silver bg-soft p-5">
+            <h2 className="text-2xl font-extrabold text-graphite">سوال‌های رایج این محصول</h2>
             <div className="mt-4 grid gap-3 md:grid-cols-3">
               {faqs.map((item) => (
                 <div key={item.question} className="rounded-xl bg-white p-4">
