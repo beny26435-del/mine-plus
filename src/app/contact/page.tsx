@@ -1,19 +1,25 @@
 import Link from "next/link";
 import { MessageCircle, PhoneCall } from "lucide-react";
 import { telHref } from "@/lib/contact";
-import { pageMetadata } from "@/lib/seo";
+import { breadcrumbSchema, jsonLd, pageMetadata } from "@/lib/seo";
 import { getPublicContact } from "@/lib/site-contact";
 
 export const metadata = pageMetadata({
   title: "تماس با ماین پلاس | خرید، قطعات، تعمیر و مشاوره فارم",
   description: "برای خرید ماینر، تهیه قطعه، ثبت تعمیر یا مشاوره راه‌اندازی فارم با ماین پلاس تماس بگیرید.",
-  path: "/contact"
+  path: "/contact",
+  keywords: ["تماس ماین پلاس", "خرید ماینر", "واتساپ ماین پلاس", "مشاوره ماینینگ"]
 });
 
 export default async function ContactPage() {
   const contact = await getPublicContact();
+  const breadcrumb = breadcrumbSchema([
+    { name: "صفحه اصلی", path: "/" },
+    { name: "تماس", path: "/contact" }
+  ]);
   return (
     <section className="py-12">
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(breadcrumb)} />
       <div className="container">
         <div className="mx-auto max-w-3xl rounded-2xl border border-silver bg-white p-8 text-center shadow-panel">
           <p className="font-extrabold text-gold">تماس</p>

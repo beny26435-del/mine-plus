@@ -4,7 +4,7 @@ import { ArrowLeft, Calculator, CheckCircle2, Cpu, FileText, HardHat, MessagesSq
 import type { LucideIcon } from "lucide-react";
 import { ProductCard } from "@/components/ProductCard";
 import { prisma } from "@/lib/prisma";
-import { absoluteUrl, jsonLd } from "@/lib/seo";
+import { absoluteUrl, faqSchema, jsonLd } from "@/lib/seo";
 import { getPublicContact } from "@/lib/site-contact";
 
 export const dynamic = "force-dynamic";
@@ -91,6 +91,20 @@ export default async function HomePage() {
     "در تعمیرات، توضیح مشکل و فایل خطا کمک می‌کند سریع‌تر بفهمیم از کجا باید شروع کرد.",
     "در فارم، اگر برق و تهویه درست حساب نشود، سود روی کاغذ خیلی زود از بین می‌رود."
   ];
+  const homeFaqs = [
+    {
+      question: "ماین پلاس بیشتر روی فروش تمرکز دارد یا تعمیرات؟",
+      answer: "هر دو مسیر فعال است. هدف این است که کاربر برای خرید ماینر، تهیه قطعه، تعمیر دستگاه یا مشاوره فارم بتواند یک مسیر روشن و قابل پیگیری داشته باشد."
+    },
+    {
+      question: "قبل از خرید ماینر چه اطلاعاتی باید بدهم؟",
+      answer: "مدل مدنظر، تعداد دستگاه، شهر، شرایط برق و محل نصب کمک می‌کند موجودی، قیمت روز و مناسب بودن دستگاه دقیق‌تر بررسی شود."
+    },
+    {
+      question: "برای تعمیر ماینر می‌توان عکس یا ویدیو فرستاد؟",
+      answer: "بله. در فرم تعمیر می‌توانید عکس یا ویدیو از خطا، صفحه وضعیت یا صدای فن ارسال کنید تا بررسی اولیه دقیق‌تر انجام شود."
+    }
+  ];
   const contentItems = [...posts.slice(0, 2), ...cases.slice(0, 2)];
   const heroEyebrow = copy(settings?.heroEyebrow, homepageCopy.heroEyebrow);
   const heroTitle = copy(settings?.heroTitle, homepageCopy.heroTitle);
@@ -115,7 +129,14 @@ export default async function HomePage() {
     logo: absoluteUrl(settings?.logoImage || "/images/mine-plus-logo.png"),
     image: absoluteUrl(settings?.bannerImage || "/images/mine-plus-banner.png"),
     telephone: contact.phone,
+    priceRange: "$$",
     sameAs: [settings?.instagram, settings?.telegram].filter(Boolean),
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: contact.phone,
+      contactType: "sales and support",
+      availableLanguage: ["fa-IR"]
+    },
     address: settings?.address ? { "@type": "PostalAddress", streetAddress: settings.address, addressCountry: "IR" } : undefined,
     openingHours: settings?.workingHours || undefined,
     areaServed: "IR"
@@ -124,6 +145,7 @@ export default async function HomePage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(businessSchema)} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(faqSchema(homeFaqs))} />
       <section className="tech-bg relative overflow-hidden py-10 text-white">
         <div className="absolute inset-0 grid-dots opacity-50" />
         <div className="container relative grid gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
@@ -248,6 +270,22 @@ export default async function HomePage() {
           </div>
         </div>
       </section> : null}
+      <section className="bg-white py-12">
+        <div className="container">
+          <div className="mb-6">
+            <p className="font-extrabold text-gold">سوال‌های رایج</p>
+            <h2 className="mt-2 text-3xl font-extrabold text-graphite">قبل از تماس چه چیزهایی بدانید؟</h2>
+          </div>
+          <div className="grid gap-4 md:grid-cols-3">
+            {homeFaqs.map((item) => (
+              <details key={item.question} className="rounded-2xl border border-silver bg-soft p-5">
+                <summary className="cursor-pointer font-extrabold leading-7 text-graphite">{item.question}</summary>
+                <p className="mt-3 text-sm leading-7 text-steel">{item.answer}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   );
 }
