@@ -41,7 +41,18 @@ const presetMiners = [
 ];
 
 function numericValue(value: string) {
-  return Number(value.replace(/,/g, "")) || 0;
+  return Number(normalizeDigits(value).replace(/,/g, "")) || 0;
+}
+
+function normalizeDigits(value: string) {
+  return value
+    .replace(/[۰-۹]/g, (digit) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(digit)))
+    .replace(/[٠-٩]/g, (digit) => String("٠١٢٣٤٥٦٧٨٩".indexOf(digit)));
+}
+
+function formatThousands(value: string) {
+  const digits = normalizeDigits(value).replace(/[^\d]/g, "");
+  return digits ? Number(digits).toLocaleString("en-US") : "";
 }
 
 export function MiningCalculator() {
@@ -138,7 +149,7 @@ export function MiningCalculator() {
             placeholder="دریافت خودکار"
           />
           <NumberField label="کارمزد استخر" suffix="%" value={poolFee} setValue={setPoolFee} step={0.1} />
-          <NumberField label="قیمت دستگاه" suffix="تومان" value={devicePrice} setValue={setDevicePrice} />
+          <NumberField label="قیمت دستگاه" suffix="تومان" value={devicePrice} setValue={setDevicePrice} formatWithThousands />
         </div>
 
         <p className="mt-5 rounded-2xl bg-soft p-4 text-sm leading-8 text-steel">
@@ -196,12 +207,38 @@ export function MiningCalculator() {
   );
 }
 
-function NumberField({ label, suffix, value, setValue, step = 1, placeholder }: { label: string; suffix: string; value: string; setValue: (value: string) => void; step?: number; placeholder?: string }) {
+function NumberField({
+  label,
+  suffix,
+  value,
+  setValue,
+  step = 1,
+  placeholder,
+  formatWithThousands = false
+}: {
+  label: string;
+  suffix: string;
+  value: string;
+  setValue: (value: string) => void;
+  step?: number;
+  placeholder?: string;
+  formatWithThousands?: boolean;
+}) {
   return (
     <label className="grid gap-2 text-sm font-extrabold text-graphite">
       {label}
       <div className="flex min-h-12 overflow-hidden rounded-xl border border-silver bg-white focus-within:border-gold">
-        <input type="number" min="0" step={step} value={value} onChange={(event) => setValue(event.target.value)} placeholder={placeholder} className="min-w-0 flex-1 px-3 text-left outline-none placeholder:text-right" dir="ltr" inputMode="decimal" />
+        <input
+          type={formatWithThousands ? "text" : "number"}
+          min="0"
+          step={step}
+          value={value}
+          onChange={(event) => setValue(formatWithThousands ? formatThousands(event.target.value) : event.target.value)}
+          placeholder={placeholder}
+          className="min-w-0 flex-1 px-3 text-left outline-none placeholder:text-right"
+          dir="ltr"
+          inputMode={formatWithThousands ? "numeric" : "decimal"}
+        />
         <span className="grid min-w-24 place-items-center border-r border-silver bg-soft px-3 text-xs text-steel">{suffix}</span>
       </div>
     </label>
