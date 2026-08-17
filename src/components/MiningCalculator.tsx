@@ -149,7 +149,7 @@ export function MiningCalculator() {
             placeholder="دریافت خودکار"
           />
           <NumberField label="کارمزد استخر" suffix="%" value={poolFee} setValue={setPoolFee} step={0.1} />
-          <NumberField label="قیمت دستگاه" suffix="تومان" value={devicePrice} setValue={setDevicePrice} formatWithThousands />
+          <MoneyField label="قیمت دستگاه" suffix="تومان" value={devicePrice} setValue={setDevicePrice} />
         </div>
 
         <p className="mt-5 rounded-2xl bg-soft p-4 text-sm leading-8 text-steel">
@@ -207,37 +207,48 @@ export function MiningCalculator() {
   );
 }
 
-function NumberField({
-  label,
-  suffix,
-  value,
-  setValue,
-  step = 1,
-  placeholder,
-  formatWithThousands = false
-}: {
+function NumberField({ label, suffix, value, setValue, step = 1, placeholder }: {
   label: string;
   suffix: string;
   value: string;
   setValue: (value: string) => void;
   step?: number;
   placeholder?: string;
-  formatWithThousands?: boolean;
 }) {
   return (
     <label className="grid gap-2 text-sm font-extrabold text-graphite">
       {label}
       <div className="flex min-h-12 overflow-hidden rounded-xl border border-silver bg-white focus-within:border-gold">
         <input
-          type={formatWithThousands ? "text" : "number"}
+          type="number"
           min="0"
           step={step}
           value={value}
-          onChange={(event) => setValue(formatWithThousands ? formatThousands(event.target.value) : event.target.value)}
+          onChange={(event) => setValue(event.target.value)}
           placeholder={placeholder}
           className="min-w-0 flex-1 px-3 text-left outline-none placeholder:text-right"
           dir="ltr"
-          inputMode={formatWithThousands ? "numeric" : "decimal"}
+          inputMode="decimal"
+        />
+        <span className="grid min-w-24 place-items-center border-r border-silver bg-soft px-3 text-xs text-steel">{suffix}</span>
+      </div>
+    </label>
+  );
+}
+
+function MoneyField({ label, suffix, value, setValue }: { label: string; suffix: string; value: string; setValue: (value: string) => void }) {
+  return (
+    <label className="grid gap-2 text-sm font-extrabold text-graphite">
+      {label}
+      <div className="flex min-h-12 overflow-hidden rounded-xl border border-silver bg-white focus-within:border-gold">
+        <input
+          type="text"
+          value={formatThousands(value)}
+          onChange={(event) => setValue(formatThousands(event.target.value))}
+          className="min-w-0 flex-1 px-3 text-left outline-none"
+          dir="ltr"
+          inputMode="numeric"
+          autoComplete="off"
         />
         <span className="grid min-w-24 place-items-center border-r border-silver bg-soft px-3 text-xs text-steel">{suffix}</span>
       </div>
